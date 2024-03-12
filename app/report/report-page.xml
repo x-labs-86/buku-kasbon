@@ -1,0 +1,89 @@
+<Page
+    navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="report-page">
+
+    <!-- <ActionBar>
+        <NavigationButton visibility="hidden"></NavigationButton>
+        <GridLayout columns="50, *">
+            <Label class="action-bar-title" text="Dashboard" colSpan="2"/>
+            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
+        </GridLayout>
+    </ActionBar> -->
+    <GridLayout rows="20, 35, *">
+        <GridLayout row="1">
+            <NavigationButton visibility="hidden"></NavigationButton>
+            <GridLayout columns="30, 30, *">
+                <Label class="fas" text="&#xf0c9;" fontSize="18" tap="onDrawerButtonTap" col="1"/>
+                <Label class="action-bar-title" text="Dashboard" col="2" colSpan="2"/>
+            </GridLayout>
+        </GridLayout>
+        <ScrollView row="2">
+            <GridLayout columns="10, *, 10" rows="auto, 10, 275, 10, 275, 20">
+                <GridLayout col="1" row="0" class="card-container" paddingTop="20" columns="*, 10, *, 10, *" rows="auto">
+                    <StackLayout class="card" col="0" row="0">
+                        <Label text="Hutang" class="title" textWrap="true" />
+                        <Label text="Aktif" class="title" textWrap="true" />
+                        <Label text="14" class="counter" textWrap="true" />
+                    </StackLayout>
+                    <StackLayout class="card" col="2" row="0">
+                        <Label text="Hutang" class="title" textWrap="true" />
+                        <Label text="Lunas" class="title" textWrap="true" />
+                        <Label text="65" class="counter" textWrap="true" />
+                    </StackLayout>
+                    <StackLayout col="4" row="0">
+                        <Button class="btn-primary" tap="insertButton">
+                            <FormattedString>
+                                <Span class="fas" text="&#x2b;" />
+                                <Span text=" " />
+                                <Span text="Data" />
+                            </FormattedString>
+                        </Button>
+                        <Button class="btn-default" tap="selectButton">
+                            <FormattedString>
+                                <Span class="fas" text="&#x2b;" />
+                                <Span text=" " />
+                                <Span text="Kasbon" />
+                            </FormattedString>
+                        </Button>
+                        <!-- <StackLayout class="card" col="0" row="0">
+                            <Label text="&#x2b; Buat Data" class="title" textWrap="true" />
+                        </StackLayout>
+                        <StackLayout class="card" col="2" row="0">
+                            <Label text="&#x2b; Buat Data" class="title" textWrap="true" />
+                        </StackLayout> -->
+                    </StackLayout>
+                </GridLayout>
+                <StackLayout col="1" row="2" class="card-container">
+                    <WrapLayout class="card">
+                        <Label class="fas" text="&#xf681;  PENGUTANG TERBANYAK" textWrap="true" fontWeight="800" fontSize="14" height="30" />
+                        <ListView items="{{ biggestDebtor }}">
+                            <ListView.itemTemplate>
+                                <WrapLayout>
+                                    <Label class="fas" text="{{ '&#xf007; ' + name + '  &#xf4d8; ' + total }}" width="100%" fontWeight="600" />
+                                    <StackLayout width="100%" borderWidth="1" borderStyle="solid" borderColor="#BDBDBD" borderRadius="16">
+                                        <Label width="{{ persentase }}" height="3%" backgroundColor="{{ bg }}" color="{{ color }}" fontSize="1" borderRadius="10" horizontalAlignment="left" />
+                                    </StackLayout>
+                                </WrapLayout>
+                            </ListView.itemTemplate>
+                        </ListView>
+                    </WrapLayout>
+                </StackLayout>
+                <StackLayout col="1" row="4" class="card-container">
+                    <WrapLayout class="card">
+                        <Label class="fas" text="&#xf681;  PENGUTANG TERLAMA" textWrap="true" fontWeight="800" fontSize="14" height="30" />
+                        <ListView items="{{ oldestDebtor }}">
+                            <ListView.itemTemplate>
+                                <WrapLayout>
+                                    <Label class="fas" text="{{ '&#xf007; ' + name + '  &#xf017; ' + time + '  &#xf4d8; ' + total }}" width="100%" fontWeight="600" />
+                                    <StackLayout width="100%" borderWidth="1" borderStyle="solid" borderColor="#BDBDBD" borderRadius="16">
+                                        <Label width="{{ persentase }}" height="3%" backgroundColor="{{ bg }}" color="{{ color }}" fontSize="1" borderRadius="10" horizontalAlignment="left" />
+                                    </StackLayout>
+                                </WrapLayout>
+                            </ListView.itemTemplate>
+                        </ListView>
+                    </WrapLayout>
+                </StackLayout>
+            </GridLayout>
+        </ScrollView>
+    </GridLayout>
+</Page>

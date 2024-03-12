@@ -1,0 +1,6 @@
+<Page shownModally="onShownModally">
+  <StackLayout>
+    <TextField text="{{ name }}" />
+    <Button text="Close" tap="onClose"/>
+  </StackLayout>
+</Page>

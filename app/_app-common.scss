@@ -1,0 +1,177 @@
+@import "@nativescript/theme/core";
+@import "@nativescript/theme/default";
+
+// Place any CSS rules you want to apply on both iOS and Android here.
+// This is where the vast majority of your CSS code goes.
+
+// Font icon class
+.fab {
+  font-family: "Font Awesome 5 Brands", "fa-brands-400";
+  font-weight: 400;
+}
+
+.fas {
+  font-family: "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+}
+
+.far {
+  font-family: "Font Awesome 5 Free", "fa-regular-400";
+  font-weight: 400;
+}
+
+.hand-phar {
+  font-family: "CRU-Pharit-Hand-Written Font Font Regular",
+    "CruPharitHandWritten-oRz0";
+}
+
+.hand-phar-bold {
+  font-family: "CRU-Pharit-Hand-Written Font Font Bold",
+    "CruPharitHandWrittenbold-08ez";
+}
+
+.hand-phar-bold-italic {
+  font-family: "CRU-Pharit-Hand-Written Font Font Bold Italic",
+    "CruPharitHandWrittenbolditalic-XypP";
+}
+
+.hand-phar-italic {
+  font-family: "CRU-Pharit-Hand-Written Font Font Italic",
+    "CruPharitHandWrittenitalic-Lyg5";
+}
+
+.hand-sutt {
+  font-family: "CRU-Suttinee-Hand-Written Font Regular",
+    "CruSuttineeHandWritten-XyoP";
+}
+
+.hand-sutt-bold {
+  font-family: "CRU-Suttinee-Hand-Written Font Bold",
+    "CruSuttineeHandWrittenBold-gAV4";
+}
+
+.hand-sutt-italic {
+  font-family: "CRU-Suttinee-Hand-Written Font Italic",
+    "CruSuttineeHandWrittenItalic-4K0l";
+}
+
+$font-size: (
+  h1: 40,
+  h2: 28,
+  h3: 24,
+  h4: 20,
+  h5: 18,
+  h6: 14,
+);
+
+@each $header, $size in $font-size {
+  #{$header} {
+    font-size: $size;
+  }
+}
+
+.btn-grey {
+  background-color: #9e9e9e;
+  color: #ffffff;
+  border-radius: 10;
+}
+
+// Common page class
+.page__content {
+  &-icon,
+  &-placeholder {
+    color: #616161;
+    // font-size: 20;
+    vertical-align: center;
+    horizontal-align: center;
+  }
+
+  &-icon {
+    font-size: 72;
+    vertical-align: top;
+    margin-top: 20%;
+  }
+}
+
+// Drawer navigation custom styles
+.nt-drawer__header-image {
+  color: const(grey);
+}
+
+.home-page {
+  .card-list {
+    border-width: 1;
+    border-style: solid;
+    border-color: #9e9e9e;
+    border-radius: 10;
+
+    margin-left: 20;
+    margin-right: 20;
+  }
+
+  .btn-add {
+    background-color: #ffeb3b;
+    color: #333;
+    border-radius: 10;
+  }
+}
+
+// card styles on home page
+.report-page {
+  background-color: #e0e0e0;
+  .card-container {
+    padding: 0 10;
+    .card {
+      border-width: 1;
+      border-style: solid;
+      border-color: #e0e0e0;
+      background-color: #ffffff;
+      color: #333;
+      border-radius: 16;
+      vertical-align: center;
+      horizontal-align: center;
+      text-align: left;
+      padding: 15 25;
+      width: 100%;
+      box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+      -webkit-box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+      -moz-box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+
+      .title {
+        font-size: 14;
+      }
+
+      .counter {
+        font-size: 24;
+        font-weight: 700;
+      }
+    }
+
+    .btn-default {
+      border-width: 1;
+      border-style: solid;
+      border-color: #e0e0e0;
+      background-color: #ffffff;
+      color: #9e9e9e;
+      border-radius: 16;
+      box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+      -webkit-box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+      -moz-box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+    }
+
+    .btn-primary {
+      border-width: 1;
+      border-style: solid;
+      border-color: #e0e0e0;
+      background-color: #2196f3;
+      color: #ffffff;
+      border-radius: 16;
+      box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+      -webkit-box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+      -moz-box-shadow: 10px 10px 40px -5px rgba(117, 117, 117, 0.2);
+    }
+  }
+}
+
+.modal {
+}

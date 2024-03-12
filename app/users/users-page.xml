@@ -1,0 +1,32 @@
+<Page
+    navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
+
+    <!-- <ActionBar>
+        <NavigationButton visibility="hidden"></NavigationButton>
+        <GridLayout columns="50, *">
+            <Label class="action-bar-title" text="Users" colSpan="2"/>
+            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
+        </GridLayout>
+    </ActionBar> -->
+
+    <GridLayout rows="20, 35, *">
+        <GridLayout row="1">
+            <NavigationButton visibility="hidden"></NavigationButton>
+            <GridLayout columns="20, 30, *, auto, 10">
+                <Label class="fas" text="&#xf0c9;" fontSize="18" tap="onDrawerButtonTap" col="1"/>
+                <Label class="action-bar-title" text="Users" col="2" colSpan="2"/>
+                <Button class="fas" text="&#x2b; New Data" col="3" />
+            </GridLayout>
+        </GridLayout>
+        <ScrollView row="2">
+            <ListView items="{{ users }}">
+                <ListView.itemTemplate>
+                    <WrapLayout>
+                        <Label text="{{ fullname }}" width="100%" fontWeight="600" />
+                    </WrapLayout>
+                </ListView.itemTemplate>
+            </ListView>
+        </ScrollView>
+    </GridLayout>
+</Page>
