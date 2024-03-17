@@ -1,14 +1,20 @@
-import { Frame, Application } from "@nativescript/core";
+import { Frame, Application, ApplicationSettings } from "@nativescript/core";
 
 import { AppRootViewModel } from "./app-root-view-model";
-import { SQL__query } from "~/sql_helper";
+
+var context = new AppRootViewModel();
 
 export function onLoaded(args) {
   const drawerComponent = args.object;
 
-  _initTables();
+  const __as = ApplicationSettings;
+  if (!__as.hasKey("setup")) {
+    __as.setBoolean("setup", true);
+  }
+  context.set("isSetup", __as.getBoolean("setup"));
+  context.set("shop_name", __as.getString("shop_name"));
 
-  drawerComponent.bindingContext = new AppRootViewModel();
+  drawerComponent.bindingContext = context;
 }
 
 export function onNavigationItemTap(args) {
@@ -28,38 +34,4 @@ export function onNavigationItemTap(args) {
 
   const drawerComponent = Application.getRootView();
   drawerComponent.closeDrawer();
-}
-
-function _initTables() {
-  SQL__query(`CREATE TABLE IF NOT EXISTS "users" (
-    "id"	INTEGER NOT NULL UNIQUE,
-    "photo"	TEXT DEFAULT NULL,
-    "fullname"	TEXT NOT NULL,
-    "about"	TEXT DEFAULT NULL,
-    "address"	TEXT,
-    "isActive"	INTEGER NOT NULL DEFAULT 1,
-    "created_date"	TEXT NOT NULL,
-    "phone"	TEXT,
-    PRIMARY KEY("id" AUTOINCREMENT)
-  )`);
-
-  SQL__query(`CREATE TABLE IF NOT EXISTS "bukukasbon" (
-    "id"	INTEGER NOT NULL UNIQUE,
-    "user_id"	INTEGER NOT NULL,
-    "total_payment"	REAL NOT NULL,
-    "kasbon_name"	TEXT NOT NULL,
-    "created_date"	TEXT NOT NULL,
-    "updated_date"	TEXT NOT NULL,
-    PRIMARY KEY("id" AUTOINCREMENT)
-  )`);
-
-  SQL__query(`CREATE TABLE IF NOT EXISTS "bukukasbon_trx" (
-    "id"	INTEGER NOT NULL UNIQUE,
-    "user_id"	INTEGER NOT NULL,
-    "bukukasbon_id"	INTEGER NOT NULL,
-    "paid"	REAL NOT NULL,
-    "created_date"	TEXT NOT NULL,
-    "correction"	INTEGER NOT NULL DEFAULT 0,
-    PRIMARY KEY("id" AUTOINCREMENT)
-  )`);
 }

@@ -14,7 +14,7 @@
                 <Image src="~/assets/icon.png" class="nt-drawer__header-image" />
                 <!-- <Image class="nt-drawer__header-image fas t-36" src="font://&#xf788;" /> -->
                 <Label class="nt-drawer__header-brand" text="Buku Kasbon" />
-                <Label class="nt-drawer__header-footnote" text="bukukasbon@x-labs.my.id" />
+                <Label class="nt-drawer__header-footnote" text="{{ shop_name }}" />
             </StackLayout>
 
             <ScrollView row="1">
@@ -70,12 +70,21 @@
                         <Label row="0" col="0" text="&#xf013;" class="nt-icon fas" />
                         <Label row="0" col="1" text="Settings" class="p-r-10" />
                     </GridLayout>
+                    <GridLayout
+                        columns="auto, *"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Setup' ? ' -selected': '') }}"
+                        route="setup/setup-page"
+                        title="Setup"
+                        tap="onNavigationItemTap">
+                        <Label row="0" col="0" text="&#xf013;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Setup" class="p-r-10" />
+                    </GridLayout>
                 </StackLayout>
             </ScrollView>
         </GridLayout>
     </nsDrawer:RadSideDrawer.drawerContent>
 
     <nsDrawer:RadSideDrawer.mainContent>
-        <Frame defaultPage="home/home-page" />
+        <Frame defaultPage="{{ isSetup ? 'setup/setup-page' : 'home/home-page' }}" />
     </nsDrawer:RadSideDrawer.mainContent>
 </nsDrawer:RadSideDrawer>

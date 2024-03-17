@@ -1,25 +1,19 @@
 <Page
+    loaded="onLoaded"
     navigatingTo="onNavigatingTo"
     xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="home-page">
 
-    <!-- <ActionBar>
-        <NavigationButton visibility="hidden"></NavigationButton>
-        <GridLayout columns="50, *">
-            <Label class="action-bar-title" text="Dashboard" colSpan="2"/>
-            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
-        </GridLayout>
-    </ActionBar> -->
     <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 20">
         <GridLayout row="1">
             <NavigationButton visibility="hidden"></NavigationButton>
-            <GridLayout columns="20, auto, 10, *, 10, auto, 10, auto 20">
+            <GridLayout columns="20, auto, 10, *, 10, auto, 10, auto 15">
                 <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
                 <WrapLayout tap="onDrawerButtonTap" borderColor="#BDBDBD" borderWidth="1" borderStyle="solid" col="1">
                     <Image src="~/assets/icon.png" />
                 </WrapLayout>
                 <Label class="h1 hand-sutt-bold" color="#FBC02D" text="Buku Kasbon" col="3" tap="truncateButton" />
-                <Label class="h3 hand-sutt-bold" color="#757575" marginTop="10" text="Senin, 11 maret 2024" col="5" tap="insertButton" />
-                <Label class="fas" color="#FFFFFF" backgroundColor="#9e9e9e" marginTop="5" text="&#xf002;" borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="7" paddingRight="7" col="7" tap="searchBarToggle" />
+                <Label class="h3 hand-sutt-bold" color="#757575" marginTop="10" text="{{ currentFormattedDate }}" col="5" tap="insertButton" />
+                <Label class="fas" color="#FFFFFF" backgroundColor="#9e9e9e" marginTop="5" text="&#xf002;" borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="7" paddingRight="7" marginRight="5" visibility="{{ isSearchButton ? 'visible' : 'collapsed' }}" col="7" tap="searchBarToggle" />
             </GridLayout>
         </GridLayout>
         
@@ -29,7 +23,7 @@
         
          <GridLayout rows="auto, 10, auto" columns="30, *, auto, 40" row="5" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}">
             <StackLayout borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="5" paddingRight="5" row="0" col="1" colSpan="2" visibility="{{ isSearchBar ? 'visible' : 'collapsed' }}">
-                <SearchBar hint="Search..." submit="onSubmit" clear="onClear"  />
+                <SearchBar hint="Cari berdasarkan nama..." submit="onSubmit" clear="onClear"  />
             </StackLayout>
             <Label text="Identitas" class="h2 hand-sutt" row="2" col="1" />
             <Label text="Total" class="h2 hand-sutt" row="2" col="2" />
@@ -38,7 +32,7 @@
             <ListView items="{{ users }}" separatorColor="#9e9e9e" row="1">
                 <ListView.itemTemplate>
                     <GridLayout columns="auto, *, auto">
-                        <Label text="{{ photo }}" class="fas h2" col="0" />
+                        <Label text="{{ avatar }}" class="fas h2" col="0" />
 
                         <StackLayout col="1">
                             <Label text="{{ fullname }}" class="h2 hand-sutt" textTransform="initial" textWrap="true" />
@@ -46,8 +40,8 @@
                         </StackLayout>
                         
                         <StackLayout col="2">
-                            <Label text="17 Kasbon" class="h2 hand-sutt" />
-                            <Label text="Rp2000.000" color="#F44336" textWrap="true" />
+                            <Label text="{{ qtyKasbon + ' kasbon' }}" class="h2 hand-sutt" />
+                            <Label text="{{ 'Rp' + totalKasbon }}" color="#F44336" textWrap="true" />
                         </StackLayout>
                     </GridLayout>
                 </ListView.itemTemplate>
@@ -59,18 +53,18 @@
             <Label class="page__content-placeholder hand-phar-bold h2" text="Selamat Datang" row="2"></Label>
             <Label class="page__content-placeholder hand-phar-bold h2" text="Buku kamu masih kosong!" row="4"></Label>
 
-            <Button text="&#x2b; Buat Data Kasbon" class="fas h2 btn-add hand-sutt" row="6" />
+            <Button text="&#x2b; Buat Data Baru" class="fas h2 btn-add hand-sutt" tap="openUserForm" row="6" />
         </GridLayout>
 
-        <GridLayout class="card-list" padding="10" row="8" rows="auto, auto" columns="0, *, *, *">
+        <GridLayout class="card-list" padding="10" row="8" rows="auto, auto" columns="10, *, *, auto">
 
-            <Label text="total" row="0" col="1" />
-            <Label text="50 orang" row="1" col="1" />
+            <Label text="TOTAL" row="0" col="1" />
+            <Label text="{{ summary.totalUsers + ' orang' }}" row="1" col="1" />
             
-            <Label text="total kasbon" row="0" col="2" />
-            <Label text="Rp10.500.000" row="1" col="2" />
+            <Label text="TOTAL KASBON" row="0" col="2" />
+            <Label text="{{ 'Rp' + summary.totalKasbon }}" row="1" col="2" />
             
-            <Button text="Lihat Laporan Lengkap" class="h4 btn-grey" row="0" col="3" rowSpan="2" />
+            <Button text="&#xf200;" class="fas h2 btn-grey" row="0" col="3" rowSpan="2" />
         </GridLayout>
     </GridLayout>
 </Page>

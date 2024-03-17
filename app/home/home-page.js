@@ -1,16 +1,28 @@
-import { Application } from "@nativescript/core";
+import { Frame, Application, ApplicationSettings } from "@nativescript/core";
 
 import { GlobalModel } from "~/global_model";
+import {
+  get__date,
+  format__number,
+  getCurrent__formattedDate,
+  fontAwesome__parser,
+} from "~/global_helper";
 import { SQL__select, SQL__insert, SQL__truncate } from "~/sql_helper";
-import { get__date } from "~/global_helper";
 
 var context = new GlobalModel([{ page: "Home" }]);
+
+export function onLoaded(args) {
+  context.set("currentFormattedDate", getCurrent__formattedDate());
+}
 
 export function onNavigatingTo(args) {
   const page = args.object;
 
+  context.set("isSearchButton", false);
   context.set("isSearchBar", false);
   _getUsers();
+
+  console.log("shop_name", ApplicationSettings.getString("shop_name"));
 
   page.bindingContext = context;
 }
@@ -18,6 +30,15 @@ export function onNavigatingTo(args) {
 export function onDrawerButtonTap(args) {
   const sideDrawer = Application.getRootView();
   sideDrawer.showDrawer();
+}
+
+export function openUserForm() {
+  Frame.topmost().navigate({
+    moduleName: "forms/user/user",
+    transition: {
+      name: "slideTop",
+    },
+  });
 }
 
 export function searchBarToggle() {
@@ -37,20 +58,33 @@ export function onClear(args) {
 
 function _getUsers(queryCondition = null) {
   SQL__select("users", "*", queryCondition).then((res) => {
+    let summary = { totalUsers: 0, totalKasbon: 0 };
     res = res.map((item, index) => {
-      item.ai = index + 1;
-      item.photo = String.fromCharCode(parseInt(item.photo, 16));
+      const randomQtyKasbon = Math.floor(Math.random() * 50) + 1;
+      const randomTotalKasbon = Math.floor(Math.random() * 1000000) + 1;
+
+      // item.avatar = String.fromCharCode(parseInt(item.avatar, 16));
+      item.qtyKasbon = randomQtyKasbon;
+      item.totalKasbon = format__number(randomTotalKasbon);
+
+      summary.totalKasbon += randomTotalKasbon;
+
       return item;
     });
 
-    console.log("DATA >>> ", res);
+    context.set("isSearchButton", res.length !== 0 ? true : false);
+
+    summary.totalUsers = res.length;
+    summary.totalKasbon = format__number(summary.totalKasbon);
+
     context.set("users", res);
     context.set("isUsersEmpty", res.length === 0);
+    context.set("summary", summary);
   });
 }
 
 export function insertButton() {
-  const photo = [
+  const avatar = [
     "f007",
     "f21b",
     "f82f",
@@ -74,12 +108,11 @@ export function insertButton() {
   for (let index = 0; index < 50; index++) {
     const randomNumber = Math.floor(Math.random() * 7) + 1;
     const data = [
-      { field: "photo", value: photo[randomNumber] },
+      { field: "avatar", value: fontAwesome__parser(avatar[randomNumber]) },
       { field: "fullname", value: fullname[randomNumber] },
       { field: "about", value: "NEWBIE " },
       { field: "address", value: "KUNINGAN" },
       { field: "phone", value: "081789654321" },
-      { field: "isActive", value: 1 },
       { field: "created_date", value: get__date() },
     ];
     SQL__insert("users", data);
