@@ -8,9 +8,9 @@
       <GridLayout columns="20, auto, 10, *, 10, auto, 0, auto, 10">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
         <WrapLayout col="1">
-            <Label class="fas h1" text="&#xf2bd;" />
+            <Label class="h1 fas" text="&#xf2bd;" />
         </WrapLayout>
-        <Label class="h1 hand-sutt-bold" color="#FBC02D" text="Data Baru" col="3" />
+        <Label class="ubuntu-bold h2 secondary" text="Data Baru" col="3" />
         <!-- <Button text="Simpan" class="btn-grey-800" padding="0 20" tap="saveData" col="5" /> -->
         <Label text="&#xf00d;" class="fas btn-grey-800-outline" padding="10" tap="cancelData" col="7" />
       </GridLayout>

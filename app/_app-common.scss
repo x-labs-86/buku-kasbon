@@ -20,39 +20,32 @@
   font-weight: 400;
 }
 
-.hand-phar {
-  font-family: "CRU-Pharit-Hand-Written Font Font Regular",
-    "CruPharitHandWritten-oRz0";
+.ubuntu {
+  font-family: "Ubuntu Regular", "Ubuntu-R";
 }
-
-.hand-phar-bold {
-  font-family: "CRU-Pharit-Hand-Written Font Font Bold",
-    "CruPharitHandWrittenbold-08ez";
+.ubuntu-italic {
+  font-family: "Ubuntu Italic", "Ubuntu-RI";
 }
-
-.hand-phar-bold-italic {
-  font-family: "CRU-Pharit-Hand-Written Font Font Bold Italic",
-    "CruPharitHandWrittenbolditalic-XypP";
+.ubuntu-light {
+  font-family: "Ubuntu Light", "Ubuntu-L";
 }
-
-.hand-phar-italic {
-  font-family: "CRU-Pharit-Hand-Written Font Font Italic",
-    "CruPharitHandWrittenitalic-Lyg5";
+.ubuntu-light-italic {
+  font-family: "Ubuntu Light Italic", "Ubuntu-LI";
 }
-
-.hand-sutt {
-  font-family: "CRU-Suttinee-Hand-Written Font Regular",
-    "CruSuttineeHandWritten-XyoP";
+.ubuntu-medium {
+  font-family: "Ubuntu Medium", "Ubuntu-M";
 }
-
-.hand-sutt-bold {
-  font-family: "CRU-Suttinee-Hand-Written Font Bold",
-    "CruSuttineeHandWrittenBold-gAV4";
+.ubuntu-medium-italic {
+  font-family: "Ubuntu Medium Italic", "Ubuntu-MI";
 }
-
-.hand-sutt-italic {
-  font-family: "CRU-Suttinee-Hand-Written Font Italic",
-    "CruSuttineeHandWrittenItalic-4K0l";
+.ubuntu-bold {
+  font-family: "Ubuntu Bold", "Ubuntu-B";
+}
+.ubuntu-bold-italic {
+  font-family: "Ubuntu Bold Italic", "Ubuntu-BI";
+}
+.ubuntu-condensed {
+  font-family: "Ubuntu Condensed", "Ubuntu-C";
 }
 
 $font-size: (
@@ -68,6 +61,22 @@ $font-size: (
   #{$header} {
     font-size: $size;
   }
+}
+
+.primary {
+  color: #ffeb3b;
+}
+.secondary {
+  color: #212121;
+}
+.white {
+  color: #ffffff;
+}
+.grey {
+  color: #9e9e9e;
+}
+.grey-800 {
+  color: #424242;
 }
 
 .tt-capitalize {
@@ -144,6 +153,7 @@ $font-size: (
 }
 
 .setup-page {
+  background-color: #212121;
 }
 
 .home-page {
