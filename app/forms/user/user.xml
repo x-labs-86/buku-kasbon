@@ -5,7 +5,7 @@
 
   <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 20">
     <GridLayout row="1">
-      <GridLayout columns="20, auto, 10, *, 10, auto, 0, auto, 10">
+      <GridLayout columns="20, auto, 10, *, 10, auto, 0, auto, 20">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
         <WrapLayout col="1">
             <Label class="h1 fas" text="&#xf2bd;" />

@@ -1,10 +1,10 @@
 import { Application } from "@nativescript/core";
 // import { ViewBase } from "@nativescript/core/ui/core/view-base";
 
-import { ReportViewModel } from "./report-view-model";
+import { GlobalModel } from "~/global_model";
 import { SQL__select, SQL__insert, SQL__truncate } from "~/sql_helper";
 
-var context = new ReportViewModel();
+var context = new GlobalModel([{ page: "Report" }]);
 
 export function onNavigatingTo(args) {
   const page = args.object;

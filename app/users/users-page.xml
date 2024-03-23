@@ -2,31 +2,48 @@
     navigatingTo="onNavigatingTo"
     xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-    <!-- <ActionBar>
-        <NavigationButton visibility="hidden"></NavigationButton>
-        <GridLayout columns="50, *">
-            <Label class="action-bar-title" text="Users" colSpan="2"/>
-            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
-        </GridLayout>
-    </ActionBar> -->
-
-    <GridLayout rows="20, 35, *">
+    <GridLayout rows="20, 35, 10, auto, 1, auto, 1, *">
         <GridLayout row="1">
             <NavigationButton visibility="hidden"></NavigationButton>
-            <GridLayout columns="20, 30, *, auto, 10">
-                <Label class="fas" text="&#xf0c9;" fontSize="18" tap="onDrawerButtonTap" col="1"/>
-                <Label class="action-bar-title" text="Users" col="2" colSpan="2"/>
-                <Button class="fas" text="&#x2b; New Data" col="3" />
+            <GridLayout columns="20, auto, 10, *, 10, auto, 10, auto, 15">
+                <Label class="fas h2" text="&#xf036;" tap="onDrawerButtonTap" col="1"/>
+                <Label class="ubuntu-bold h2 secondary" text="{{ totalUsers + ' Pelanggan' }}" col="3" />
+                <Label text="&#x2b;" class="fas btn-grey-800-outline" padding="0 10" tap="openUserForm" col="5" />
+                <Label class="btn-grey fas"  text="&#xf002;" padding="0 10" visibility="{{ isSearchButton ? 'visible' : 'collapsed' }}" col="7" tap="searchBarToggle" />
             </GridLayout>
         </GridLayout>
-        <ScrollView row="2">
-            <ListView items="{{ users }}">
+
+        <FlexboxLayout flexDirection="column" backgroundColor="#3c495e" marginLeft="20" marginRight="20" row="3">
+            <Label text="" height="1" backgroundColor="#FBC02D" />
+        </FlexboxLayout>
+
+        <StackLayout borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" padding="0 5" margin="20" row="5" visibility="{{ isSearchBar ? 'visible' : 'collapsed' }}">
+            <SearchBar hint="Cari berdasarkan nama..." submit="onSubmit" clear="onClear"  />
+        </StackLayout>
+
+        <GridLayout rows="*" row="7" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}">
+            <ListView items="{{ users }}" separatorColor="#9e9e9e" row="0">
                 <ListView.itemTemplate>
-                    <WrapLayout>
-                        <Label text="{{ fullname }}" width="100%" fontWeight="600" />
-                    </WrapLayout>
+                    <GridLayout columns="auto, *, auto">
+                        <Label text="{{ avatar }}" class="fas h2" col="0" />
+
+                        <StackLayout col="1">
+                            <Label text="{{ fullname }}" class="ubuntu-bold h3" textTransform="initial" textWrap="true" />
+                            <Label text="{{ phone }}" class="ubuntu" textTransform="lowercase" textWrap="true" />
+                        </StackLayout>
+                        
+                        <StackLayout col="2">
+                            <Label text="{{ about }}" class="ubuntu h4" textWrap="true" />
+                            <Label text="{{ address }}" class="ubuntu" textWrap="true" />
+                        </StackLayout>
+                    </GridLayout>
                 </ListView.itemTemplate>
             </ListView>
-        </ScrollView>
+        </GridLayout>
+
+        <GridLayout row="8" rows="auto, 20, auto" class="page__content" visibility="{{ isUsersEmpty ? 'visible' : 'collapsed' }}">
+            <Image src="~/assets/icon.png" class="page__content-icon" height="74" row="0" />
+            <Label class="page__content-placeholder ubuntu-condensed h2" text="Tidak ada data!" row="2"></Label>
+        </GridLayout>
     </GridLayout>
 </Page>

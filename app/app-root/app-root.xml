@@ -25,8 +25,8 @@
                         route="home/home-page"
                         title="Home"
                         tap="onNavigationItemTap">
-                        <Label row="0" col="0" text="&#xf015;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Home" class="p-r-10" />
+                        <Label row="0" col="0" text="&#xf7ae;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Beranda" class="p-r-10" />
                     </GridLayout>
 
                     <GridLayout
@@ -35,8 +35,8 @@
                         route="users/users-page"
                         title="Users"
                         tap="onNavigationItemTap">
-                        <Label row="0" col="0" text="&#xf1ea;" class="nt-icon far" />
-                        <Label row="0" col="1" text="Users" class="p-r-10" />
+                        <Label row="0" col="0" text="&#xf2bd;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Pelanggan" class="p-r-10" />
                     </GridLayout>
 
                     <GridLayout
@@ -45,8 +45,8 @@
                         route="transactions/transactions-page"
                         title="Transactions"
                         tap="onNavigationItemTap">
-                        <Label row="0" col="0" text="&#xf002;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Transactions" class="p-r-10" />
+                        <Label row="0" col="0" text="&#xf1c0;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Transaksi" class="p-r-10" />
                     </GridLayout>
 
                     <GridLayout
@@ -56,7 +56,7 @@
                         title="Report"
                         tap="onNavigationItemTap">
                         <Label row="0" col="0" text="&#xf200;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Report" class="p-r-10" />
+                        <Label row="0" col="1" text="Laporan" class="p-r-10" />
                     </GridLayout>
 
                     <StackLayout class="hr" />
@@ -68,7 +68,7 @@
                         title="Settings"
                         tap="onNavigationItemTap">
                         <Label row="0" col="0" text="&#xf013;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Settings" class="p-r-10" />
+                        <Label row="0" col="1" text="Pengaturan" class="p-r-10" />
                     </GridLayout>
                     <GridLayout
                         columns="auto, *"

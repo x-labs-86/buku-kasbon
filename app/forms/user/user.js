@@ -43,10 +43,5 @@ export function saveData() {
 }
 
 export function cancelData() {
-  Frame.topmost().navigate({
-    moduleName: "home/home-page",
-    transition: {
-      name: "slideBottom",
-    },
-  });
+  Frame.topmost().goBack();
 }

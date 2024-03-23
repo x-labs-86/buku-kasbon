@@ -32,11 +32,20 @@ export function onDrawerButtonTap(args) {
   sideDrawer.showDrawer();
 }
 
-export function openUserForm() {
+export function openUserFormPage() {
   Frame.topmost().navigate({
     moduleName: "forms/user/user",
     transition: {
       name: "slideTop",
+    },
+  });
+}
+
+export function openReportPage() {
+  Frame.topmost().navigate({
+    moduleName: "report/report-page",
+    transition: {
+      name: "fade",
     },
   });
 }
@@ -46,9 +55,6 @@ export function searchBarToggle() {
 }
 
 export function onSubmit(args) {
-  // console.log(args);
-  // console.log(args.object);
-  // console.log(args.object.text);
   _getUsers(`WHERE fullname LIKE '%${args.object.text}%'`);
 }
 
