@@ -1,10 +1,13 @@
 import { Application } from "@nativescript/core";
 
-import { TransactionsViewModel } from "./transactions-view-model";
+import { GlobalModel } from "~/global_model";
+
+var context = new GlobalModel([{ page: "Transactions" }]);
 
 export function onNavigatingTo(args) {
   const page = args.object;
-  page.bindingContext = new TransactionsViewModel();
+
+  page.bindingContext = context;
 }
 
 export function onDrawerButtonTap(args) {

@@ -2,22 +2,160 @@
     navigatingTo="onNavigatingTo"
     xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="setup-page">
     
-    <GridLayout rows="*, auto, 10, auto, 30, auto, 10, auto, 10, auto, *" columns="30, *, 30">
-        <Image src="~/assets/icon.png" width="100" row="1" col="1" />
-        
-        <StackLayout row="3"  col="1">
-            <Label class="ubuntu-bold h1 white" text="Buku Kasbon" textWrap="true" textAlignment="center" />
-            <Label class="ubuntu white" text="Pencatatan Kasbon yang Mudah dan Efisien" textWrap="true" textAlignment="center" />
-        </StackLayout>
+    <FlexboxLayout>
+        <!-- LOGO -->
+        <GridLayout rows="*, auto, 10, 100, *, auto, 30" columns="20,*,20" visibility="{{ logo_slide ? 'visible' : 'collapsed' }}">
+            <StackLayout row="1"  col="1">
+                <Label class="ubuntu h2 white" text="Selamat datang di" textWrap="true" textAlignment="center" />
+                <Label class="ubuntu-bold h1 white" text="Buku Kasbon" textWrap="true" textAlignment="center" />
+            </StackLayout>
 
-        <StackLayout row="5" col="1">
-            <TextField class="text-input ubuntu" text="{{ shop_name }}" hint="Nama toko" />
-        </StackLayout>
+            <Image src="~/assets/icon.png" width="100" row="3" col="1" />
 
-        <StackLayout row="9" col="1">
-            <Button text="Simpan &amp; Mulai Sekarang" class="ubuntu-bold btn-grey-800" tap="startNow" visibility="{{ !isLoading ? 'visible' : 'collapsed' }}" />
-            <ActivityIndicator color="#FFFFFF" height="40" width="40" busy="{{ isLoading }}" />
-        </StackLayout>
-    </GridLayout>
-    
+            <StackLayout row="5" col="1">
+                <WrapLayout horizontalAlignment="center" margin="0 0 30 0">
+                    <Label borderRadius="10 0 0 10" width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label width="10%" height="10%" backgroundColor="#FFFFFF" />
+                    <Label text="1/5" width="10%" height="10%" backgroundColor="#FFFFFF" textAlignment="center" />
+                    <Label width="10%" height="10%" backgroundColor="#FFFFFF" />
+                    <Label borderRadius="0 10 10 0" width="10%" height="10%" backgroundColor="#FFFFFF" />
+                </WrapLayout>
+                <Button text="Selanjutnya" class="ubuntu-bold btn-white" tap="toggleSlide" tapParam="f1" />
+            </StackLayout> 
+        </GridLayout>
+
+        <!-- F1 -->
+        <GridLayout rows="30, auto, *, auto, *, auto, 30" columns="20,*,20" visibility="{{ f1_slide ? 'visible' : 'collapsed' }}">
+            <StackLayout orientation="horizontal" row="1"  col="1">
+                <Image src="~/assets/icon.png" width="25" />
+                <Label class="ubuntu-bold h3 white" text="Buku Kasbon" textWrap="true" marginLeft="10" />
+            </StackLayout>
+
+            <StackLayout row="3"  col="1">
+                <Label class="fas white" fontSize="72" text="&#xf6de;" textAlignment="center" margin="0 0 20 0" />
+                <Label class="ubuntu-bold h1 white" text="Semua dalam genggaman Anda" textWrap="true" textAlignment="center" />
+                <Label class="ubuntu-bold h1 white" text="Minim penggunaan kertas" textWrap="true" textAlignment="center" />
+            </StackLayout>
+
+            <StackLayout row="5" col="1">
+                <WrapLayout horizontalAlignment="center" margin="0 0 30 0">
+                    <Label borderRadius="10 0 0 10" width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label text="2/5" width="10%" height="10%" backgroundColor="#FFFFFF" textAlignment="center" />
+                    <Label width="10%" height="10%" backgroundColor="#FFFFFF" />
+                    <Label borderRadius="0 10 10 0" width="10%" height="10%" backgroundColor="#FFFFFF" />
+                </WrapLayout>
+                <Button text="Selanjutnya" class="ubuntu-bold btn-white" tap="toggleSlide" tapParam="f2" margin="0 0 20 0" />
+                <Label class="ubuntu-bold h5 white" text="kembali" textWrap="true" textAlignment="center" tap="toggleSlide" tapParam="logo" />
+            </StackLayout> 
+        </GridLayout>
+
+        <!-- F2 -->
+        <GridLayout rows="30, auto, *, auto, *, auto, 30" columns="20,*,20" visibility="{{ f2_slide ? 'visible' : 'collapsed' }}">
+            <StackLayout orientation="horizontal" row="1"  col="1">
+                <Image src="~/assets/icon.png" width="25" />
+                <Label class="ubuntu-bold h3 white" text="Buku Kasbon" textWrap="true" marginLeft="10" />
+            </StackLayout>
+
+            <StackLayout row="3"  col="1">
+                <Label class="fas white" fontSize="72" text="&#xe560;" textAlignment="center" margin="0 0 20 0" />
+                <Label class="ubuntu-bold h1 white" text="Offline, Tidak perlu jaringan internet" textWrap="true" textAlignment="center" />
+            </StackLayout>
+
+            <StackLayout row="5" col="1">
+                <WrapLayout horizontalAlignment="center" margin="0 0 30 0">
+                    <Label borderRadius="10 0 0 10" width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label text="3/5" width="10%" height="10%" backgroundColor="#FFEB3B" textAlignment="center" />
+                    <Label width="10%" height="10%" backgroundColor="#FFFFFF" />
+                    <Label borderRadius="0 10 10 0" width="10%" height="10%" backgroundColor="#FFFFFF" />
+                </WrapLayout>
+                <Button text="Selanjutnya" class="ubuntu-bold btn-white" tap="toggleSlide" tapParam="f3" margin="0 0 20 0" />
+                <Label class="ubuntu-bold h5 white" text="kembali" textWrap="true" textAlignment="center" tap="toggleSlide" tapParam="f1" />
+            </StackLayout> 
+        </GridLayout>
+
+        <!-- F3 -->
+        <GridLayout rows="30, auto, *, auto, *, auto, 30" columns="20,*,20" visibility="{{ f3_slide ? 'visible' : 'collapsed' }}">
+            <StackLayout orientation="horizontal" row="1"  col="1">
+                <Image src="~/assets/icon.png" width="25" />
+                <Label class="ubuntu-bold h3 white" text="Buku Kasbon" textWrap="true" marginLeft="10" />
+            </StackLayout>
+
+            <StackLayout row="3"  col="1">
+                <Label class="fas white" fontSize="72" text="&#xf7fb;" textAlignment="center" margin="0 0 20 0" />
+                <Label class="ubuntu-bold h1 white" text="Mudah digunakan dan Efisien" textWrap="true" textAlignment="center" />
+            </StackLayout>
+
+            <StackLayout row="5" col="1">
+                <WrapLayout horizontalAlignment="center" margin="0 0 30 0">
+                    <Label borderRadius="10 0 0 10" width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label text="4/5" width="10%" height="10%" backgroundColor="#FFEB3B" textAlignment="center" />
+                    <Label width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label borderRadius="0 10 10 0" width="10%" height="10%" backgroundColor="#FFFFFF" />
+                </WrapLayout>
+                <Button text="Selanjutnya" class="ubuntu-bold btn-white" tap="toggleSlide" tapParam="form" margin="0 0 20 0" />
+                <Label class="ubuntu-bold h5 white" text="kembali" textWrap="true" textAlignment="center" tap="toggleSlide" tapParam="f2" />
+            </StackLayout> 
+        </GridLayout>
+
+        <!-- FORM -->
+        <GridLayout rows="30, auto, *, auto, *, auto, 30" columns="20,*,20" visibility="{{ form_slide ? 'visible' : 'collapsed' }}">
+            <StackLayout orientation="horizontal" row="1"  col="1">
+                <Image src="~/assets/icon.png" width="25" />
+                <Label class="ubuntu-bold h3 white" text="Buku Kasbon" textWrap="true" marginLeft="10" />
+            </StackLayout>
+
+            <StackLayout row="3"  col="1">
+                <Label class="fas white" fontSize="72" text="&#xf54e;" textAlignment="center" margin="0 0 20 0" />
+                <!-- <Label class="ubuntu-bold h1 white" text="Semua dalam genggaman Anda" textWrap="true" textAlignment="center" /> -->
+                <TextField class="text-input ubuntu" text="{{ shop_name }}" hint="Nama toko" />
+            </StackLayout>
+
+            <StackLayout row="5" col="1">
+                <WrapLayout horizontalAlignment="center" margin="0 0 30 0">
+                    <Label borderRadius="10 0 0 10" width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label text="5/5" width="10%" height="10%" backgroundColor="#FFEB3B" textAlignment="center" />
+                    <Label width="10%" height="10%" backgroundColor="#FFEB3B" />
+                    <Label borderRadius="0 10 10 0" width="10%" height="10%" backgroundColor="#FFEB3B" />
+                </WrapLayout>
+                <!-- <Button text="Selanjutnya" class="ubuntu-bold btn-white" tap="toggleSlide" tapParam="form" margin="0 0 20 0" /> -->
+                
+                <Button text="Simpan &amp; Mulai Sekarang" class="ubuntu-bold btn-white" tap="startNow" margin="0 0 20 0" visibility="{{ !isLoading ? 'visible' : 'collapsed' }}" />
+                <ActivityIndicator color="#FFFFFF" height="40" width="40" margin="0 0 20 0" visibility="{{ isLoading ? 'visible' : 'collapsed' }}" busy="{{ isLoading }}" />
+                <Label class="ubuntu-bold h5 white" text="kembali" textWrap="true" textAlignment="center" tap="toggleSlide" tapParam="f3" />
+            </StackLayout> 
+        </GridLayout>
+
+        <!-- <StackLayout visibility="{{ f2_slide ? 'visible' : 'collapsed' }}">
+            <Label textAlignment="center" class="ubuntu-bold h1 white" text="feature_2" />
+        </StackLayout> -->
+
+        <!-- <StackLayout visibility="{{ f3_slide ? 'visible' : 'collapsed' }}">
+            <Label textAlignment="center" class="ubuntu-bold h1 white" text="feature_3" />
+        </StackLayout> -->
+
+        <!-- <GridLayout rows="*, auto, 10, auto, 30, auto, 10, auto, 10, auto, *" columns="30, *, 30" visibility="{{ form_slide ? 'visible' : 'collapsed' }}">
+            <Image src="~/assets/icon.png" width="100" row="1" col="1" />
+            
+            <StackLayout row="3"  col="1">
+                <Label class="ubuntu-bold h1 white" text="Buku Kasbon" textWrap="true" textAlignment="center" />
+                <Label class="ubuntu white" text="Pencatatan Kasbon yang Mudah dan Efisien" textWrap="true" textAlignment="center" />
+            </StackLayout>
+
+            <StackLayout row="5" col="1">
+                <TextField class="text-input ubuntu" text="{{ shop_name }}" hint="Nama toko" />
+            </StackLayout>
+
+            <StackLayout row="9" col="1">
+                <Button text="Simpan &amp; Mulai Sekarang" class="ubuntu-bold btn-grey-800" tap="startNow" visibility="{{ !isLoading ? 'visible' : 'collapsed' }}" />
+                <ActivityIndicator color="#FFFFFF" height="40" width="40" busy="{{ isLoading }}" />
+
+                <Label class="ubuntu-bold h2 white" text="{{ current_slide }}" />
+                <Button text="Toggle Slide" class="ubuntu-bold btn-grey-800" tap="toggleSlide" tapParam="logo" />
+            </StackLayout>
+        </GridLayout> -->
+    </FlexboxLayout>
 </Page>

@@ -1,13 +1,16 @@
-import { Application } from '@nativescript/core'
+import { Application } from "@nativescript/core";
 
-import { SettingsViewModel } from './settings-view-model'
+import { GlobalModel } from "~/global_model";
+
+var context = new GlobalModel([{ page: "Settings" }]);
 
 export function onNavigatingTo(args) {
-  const page = args.object
-  page.bindingContext = new SettingsViewModel()
+  const page = args.object;
+
+  page.bindingContext = context;
 }
 
 export function onDrawerButtonTap(args) {
-  const sideDrawer = Application.getRootView()
-  sideDrawer.showDrawer()
+  const sideDrawer = Application.getRootView();
+  sideDrawer.showDrawer();
 }
