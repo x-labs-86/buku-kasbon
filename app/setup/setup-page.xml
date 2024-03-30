@@ -33,8 +33,7 @@
 
             <StackLayout row="3"  col="1">
                 <Label class="fas white" fontSize="72" text="&#xf6de;" textAlignment="center" margin="0 0 20 0" />
-                <Label class="ubuntu-bold h1 white" text="Semua dalam genggaman Anda" textWrap="true" textAlignment="center" />
-                <Label class="ubuntu-bold h1 white" text="Minim penggunaan kertas" textWrap="true" textAlignment="center" />
+                <Label class="ubuntu-bold h1 white" text="Minim penggunaan kertas. Semua dalam genggaman Anda" textWrap="true" textAlignment="center" />
             </StackLayout>
 
             <StackLayout row="5" col="1">

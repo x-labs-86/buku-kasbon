@@ -14,16 +14,17 @@ export async function SQL__select(
   fields = "*",
   conditionalQuery = null
 ) {
+  let selectQuery;
+
+  if (conditionalQuery) {
+    selectQuery =
+      "SELECT " + fields + " FROM " + table + " " + conditionalQuery;
+  } else {
+    selectQuery = "SELECT " + fields + " FROM " + table;
+  }
+
   try {
-    let select;
-
-    if (conditionalQuery) {
-      select = "SELECT " + fields + " FROM " + table + " " + conditionalQuery;
-    } else {
-      select = "SELECT " + fields + " FROM " + table;
-    }
-
-    const data = await sqlite.select(select);
+    const data = await sqlite.select(selectQuery);
     return data;
   } catch (error) {
     if (showError) {
@@ -33,35 +34,37 @@ export async function SQL__select(
 }
 
 export async function SQL__insert(table, data = []) {
+  if (!data.length) {
+    console.dir("Data : ", data);
+    console.dir("Data length : ", data.length);
+    console.log("No data to insert");
+    return;
+  }
+
+  let insertQuery,
+    fields = [],
+    holder = [],
+    value = [];
+  for (let i in data) {
+    fields.push(data[i].field);
+    holder.push("?");
+    value.push(data[i].value);
+  }
+
+  let fieldsString = fields.join(", "),
+    holderString = holder.join(", ");
+
+  insertQuery =
+    "INSERT INTO " +
+    table +
+    " (" +
+    fieldsString +
+    ") VALUES (" +
+    holderString +
+    ")";
+
   try {
-    if (data.length) {
-      let fields = [],
-        holder = [],
-        value = [];
-      for (let i in data) {
-        fields.push(data[i].field);
-        holder.push("?");
-        value.push(data[i].value);
-      }
-
-      let fieldsString = fields.join(", "),
-        holderString = holder.join(", ");
-
-      const insert =
-        "INSERT INTO " +
-        table +
-        " (" +
-        fieldsString +
-        ") VALUES (" +
-        holderString +
-        ")";
-
-      await sqlite.execute(insert, value);
-    } else {
-      console.dir("Data : ", data);
-      console.dir("Data length : ", data.length);
-      console.log("No data to insert");
-    }
+    await sqlite.execute(insertQuery, value);
   } catch (error) {
     if (showError) {
       console.log("SQL__insert error >> ", error);
@@ -70,28 +73,34 @@ export async function SQL__insert(table, data = []) {
 }
 
 export async function SQL__update(table, data = [], id, conditionalQuery) {
+  if (!data.length) {
+    console.dir("Data : ", data);
+    console.dir("Data length : ", data.length);
+    console.log("No data to update");
+    return;
+  }
+
+  let updateQuery,
+    dataSet = [],
+    valueSet = [];
+
+  for (let i in data) {
+    dataSet.push(data[i].field + " = ?");
+    valueSet.push(data[i].value);
+  }
+
+  let dataSetString = dataSet.join(", ");
+
+  if (id) {
+    updateQuery =
+      "UPDATE " + table + " SET " + dataSetString + " WHERE id=" + id;
+  } else {
+    updateQuery =
+      "UPDATE " + table + " SET " + dataSetString + " " + conditionalQuery;
+  }
+
   try {
-    if (data.length) {
-      let dataSet = [];
-      for (let i in data) {
-        dataSet.push(data[i].field + " = " + data[i].value);
-      }
-
-      let dataSetString = dataSet.join(", ");
-
-      if (id) {
-        const update =
-          "UPDATE " + table + " SET " + dataSetString + " WHERE id=" + id;
-      } else {
-        const update =
-          "UPDATE " + table + " SET " + dataSetString + " " + conditionalQuery;
-      }
-      await sqlite.execute(update);
-    } else {
-      console.dir("Data : ", data);
-      console.dir("Data length : ", data.length);
-      console.log("No data to update");
-    }
+    await sqlite.execute(updateQuery, valueSet);
   } catch (error) {
     if (showError) {
       console.log("SQL__update error >> ", error);
@@ -99,9 +108,15 @@ export async function SQL__update(table, data = [], id, conditionalQuery) {
   }
 }
 
-export async function SQL__delete(table, conditionalQuery) {
+export async function SQL__delete(table, id, conditionalQuery) {
+  let deleteQuery;
+  if (id) {
+    deleteQuery = "DELETE FROM " + table + " WHERE id=" + id;
+  } else {
+    deleteQuery = "DELETE FROM " + table + " " + conditionalQuery;
+  }
   try {
-    await sqlite.execute("DELETE FROM " + table + " " + conditionalQuery);
+    await sqlite.execute(deleteQuery);
   } catch (error) {
     if (showError) {
       console.log("SQL__delete error >> ", error);

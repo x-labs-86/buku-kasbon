@@ -33,7 +33,11 @@
         <Label text="Alamat" class="h3" margin="15 20 0 20" />
         <TextView class="text-input-outline" text="{{ address }}" hint="Alamat rumah atau alamat tinggal saat ini..." maxLines="3" />
 
-        <Button text="Simpan" class="btn-grey-800" marginTop="20" padding="0 20" tap="saveData" />
+        <Button text="{{ isEdit ? 'Simpan Perubahan' : 'Simpan' }}" class="btn-grey-800" marginTop="20" padding="0 20" tap="onSubmit" /> 
+
+        <Button text="Pindahkan ke Arsip" class="btn-brown-outline" marginTop="20" padding="0 20" tap="onArchived" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" />
+
+        <Button text="Hapus Permanen" class="btn-red-outline" marginTop="10" padding="0 20" tap="onDelete" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" />
       </StackLayout>
     </ScrollView>
   </GridLayout>

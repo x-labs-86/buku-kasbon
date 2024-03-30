@@ -1,4 +1,5 @@
 import { SQL__query } from "~/sql_helper";
+import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 
 export function init__tables() {
   SQL__query(`CREATE TABLE IF NOT EXISTS "users" (
@@ -14,6 +15,7 @@ export function init__tables() {
     "bg" TEXT DEFAULT NULL,
     "archive"	INTEGER NOT NULL DEFAULT 0,
     "active"	INTEGER NOT NULL DEFAULT 1,
+    "updated_date"	TEXT NOT NULL,
     "created_date"	TEXT NOT NULL,
     PRIMARY KEY("id" AUTOINCREMENT)
   )`);
@@ -131,4 +133,68 @@ export function created__date() {
   const formattedDateTime = `${day}/${month}/${year} ${hours}:${minutes}`;
 
   return formattedDateTime;
+}
+
+export function snackbar(msg, type, delay = 2000) {
+  const snackbar = new SnackBar();
+  const typeUpper = type && type.toUpperCase();
+
+  let typeOptions;
+
+  switch (typeUpper) {
+    case "ERROR":
+      typeOptions = {
+        textColor: "#FFFFFF",
+        actionText: "X",
+        actionColor: "#FFFFFF",
+        backgroundColor: "#E74C3C",
+      };
+      break;
+
+    case "WARNING":
+      typeOptions = {
+        textColor: "#000000",
+        actionText: "X",
+        actionColor: "#000000",
+        backgroundColor: "#F1C40F",
+      };
+      break;
+
+    case "INFO":
+      typeOptions = {
+        textColor: "#000000",
+        actionText: "OK",
+        actionColor: "#000000",
+        backgroundColor: "#3498DB",
+      };
+      break;
+
+    case "SUCCESS":
+      typeOptions = {
+        textColor: "#FFFFFF",
+        actionText: "OK",
+        actionColor: "#FFFFFF",
+        backgroundColor: "#2ECC71",
+      };
+      break;
+
+    default:
+      // success
+      typeOptions = {
+        textColor: "#000000",
+        actionText: "X",
+        actionColor: "#000000",
+        backgroundColor: "#ECF0F1",
+      };
+      break;
+  }
+
+  snackbar.action({
+    message: msg,
+    actionText: typeOptions.actionText,
+    textColor: typeOptions.textColor,
+    actionTextColor: typeOptions.actionColor,
+    backgroundColor: typeOptions.backgroundColor,
+    hideDelay: delay,
+  });
 }

@@ -3,7 +3,7 @@ import { Application, Frame } from "@nativescript/core";
 import { SQL__select } from "../sql_helper";
 import { GlobalModel } from "~/global_model";
 
-var context = new GlobalModel([{ page: "User" }]);
+var context = new GlobalModel([{ page: "Users" }]);
 
 export function onNavigatingTo(args) {
   const page = args.object;
@@ -11,7 +11,7 @@ export function onNavigatingTo(args) {
   context.set("isSearchButton", false);
   context.set("isSearchBar", false);
   context.set("totalUsers", 0);
-  _getUsers();
+  _getUsers(`WHERE archive=0 AND active=1`);
 
   console.log("isSearchButton", context.isSearchButton);
 
@@ -25,9 +25,32 @@ export function onDrawerButtonTap(args) {
 
 export function openUserForm() {
   Frame.topmost().navigate({
-    moduleName: "forms/user/user",
+    moduleName: "forms/user-form/user-form",
     transition: {
       name: "slideTop",
+    },
+    context: {
+      originModule: "users/users-page",
+      dataForm: {
+        fullname: "KANG CAHYA",
+      },
+    },
+  });
+}
+
+export function openUserFormEdit(args) {
+  // let itemIndex = args.index;
+  let itemTap = args.view;
+  let itemTapData = itemTap.bindingContext;
+
+  Frame.topmost().navigate({
+    moduleName: "forms/user-form/user-form",
+    transition: {
+      name: "slideTop",
+    },
+    context: {
+      originModule: "users/users-page",
+      dataForm: itemTapData,
     },
   });
 }
@@ -37,11 +60,13 @@ export function searchBarToggle() {
 }
 
 export function onSubmit(args) {
-  _getUsers(`WHERE fullname LIKE '%${args.object.text}%'`);
+  _getUsers(
+    `WHERE fullname LIKE '%${args.object.text}%' AND archive=0 AND active=1`
+  );
 }
 
 export function onClear(args) {
-  _getUsers();
+  _getUsers(`WHERE archive=0 AND active=1`);
 }
 
 function _getUsers(queryCondition = null) {

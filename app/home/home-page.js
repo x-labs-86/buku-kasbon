@@ -34,9 +34,13 @@ export function onDrawerButtonTap(args) {
 
 export function openUserFormPage() {
   Frame.topmost().navigate({
-    moduleName: "forms/user/user",
+    moduleName: "forms/user-form/user-form",
     transition: {
       name: "slideTop",
+    },
+    context: {
+      originModule: "home/home-page",
+      dataForm: null,
     },
   });
 }

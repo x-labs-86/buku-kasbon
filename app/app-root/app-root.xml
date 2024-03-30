@@ -63,21 +63,21 @@
 
                     <GridLayout
                         columns="auto, *"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Archive' ? ' -selected': '') }}"
+                        route="settings/settings-page"
+                        title="Archive"
+                        tap="onNavigationItemTap">
+                        <Label row="0" col="0" text="&#xf187;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Arsip" class="p-r-10" />
+                    </GridLayout>
+                    <GridLayout
+                        columns="auto, *"
                         class="{{ 'nt-drawer__list-item' + (selectedPage === 'Settings' ? ' -selected': '') }}"
                         route="settings/settings-page"
                         title="Settings"
                         tap="onNavigationItemTap">
                         <Label row="0" col="0" text="&#xf013;" class="nt-icon fas" />
                         <Label row="0" col="1" text="Pengaturan" class="p-r-10" />
-                    </GridLayout>
-                    <GridLayout
-                        columns="auto, *"
-                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Setup' ? ' -selected': '') }}"
-                        route="setup/setup-page"
-                        title="Setup"
-                        tap="onNavigationItemTap">
-                        <Label row="0" col="0" text="&#xf013;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Setup" class="p-r-10" />
                     </GridLayout>
                 </StackLayout>
             </ScrollView>

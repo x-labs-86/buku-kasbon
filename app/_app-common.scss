@@ -110,6 +110,24 @@ $font-size: (
   border-radius: 10;
 }
 
+.btn-red-outline {
+  background-color: #ffffff;
+  color: #f44336;
+  border-radius: 10;
+  border-width: 1;
+  border-color: #f44336;
+  border-style: solid;
+}
+
+.btn-brown-outline {
+  background-color: #ffffff;
+  color: #795548;
+  border-radius: 10;
+  border-width: 1;
+  border-color: #795548;
+  border-style: solid;
+}
+
 .text-input {
   background-color: #ffffff;
   color: #424242;
