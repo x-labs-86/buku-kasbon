@@ -3,17 +3,18 @@
     navigatingTo="onNavigatingTo"
     xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="home-page">
 
-    <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 20">
+    <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 10, auto, 10">
         <GridLayout row="1">
             <NavigationButton visibility="hidden"></NavigationButton>
-            <GridLayout columns="20, auto, 10, *, 10, auto, 10, auto 15">
+            <GridLayout columns="20, auto, 10, *, 10, auto, 10, auto, 5, auto 15">
                 <Label class="fas h2" text="&#xf036;" tap="onDrawerButtonTap" col="1"/>
                 <!-- <WrapLayout tap="onDrawerButtonTap" borderColor="#BDBDBD" borderWidth="1" borderStyle="solid" col="1">
                     <Image src="~/assets/icon.png" />
                 </WrapLayout> -->
                 <Label class="ubuntu-bold h2 secondary" text="Buku Kasbon" col="3" tap="truncateButton" />
                 <Label class="ubuntu grey-800" marginTop="10" text="{{ currentFormattedDate }}" col="5" tap="insertButton" />
-                <Label class="fas" color="#FFFFFF" backgroundColor="#9e9e9e" marginTop="5" text="&#xf002;" borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="7" paddingRight="7" marginRight="5" visibility="{{ isSearchButton ? 'visible' : 'collapsed' }}" col="7" tap="searchBarToggle" />
+                <Label class="fas btn-grey" text="&#xf002;" padding="0 10" marginRight="5" col="7" tap="searchBarToggle" />
+                <Label text="&#x2b;" class="fas btn-grey-800-outline" padding="0 10" tap="openUserFormPage" col="9" />
             </GridLayout>
         </GridLayout>
         
@@ -21,15 +22,15 @@
             <Label text="" height="1" backgroundColor="#FBC02D" />
         </FlexboxLayout>
         
-         <GridLayout rows="auto, 10, auto" columns="30, *, auto, 40" row="5" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}">
+         <GridLayout rows="auto, 10, auto" columns="30, *, auto, 40" row="5">
             <StackLayout borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="5" paddingRight="5" row="0" col="1" colSpan="2" visibility="{{ isSearchBar ? 'visible' : 'collapsed' }}">
                 <SearchBar hint="Cari berdasarkan nama..." submit="onSubmit" clear="onClear"  />
             </StackLayout>
-            <Label text="Identitas" class="h3 ubuntu" row="2" col="1" />
-            <Label text="Total" class="h3 ubuntu" row="2" col="2" />
+            <Label text="Identitas" class="h3 ubuntu" row="2" col="1" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
+            <Label text="Total" class="h3 ubuntu" row="2" col="2" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
         </GridLayout>
         <GridLayout rows="*" row="6" class="card-list" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}">
-            <ListView items="{{ users }}" separatorColor="#9e9e9e" row="0">
+            <ListView items="{{ users }}" itemTap="openTrxFormPage" separatorColor="#9e9e9e" row="0">
                 <ListView.itemTemplate>
                     <GridLayout columns="auto, *, auto">
                         <Label text="{{ avatar }}" class="fas h2" col="0" />
@@ -52,20 +53,28 @@
             <!-- <Label class="page__content-icon fas" text="&#xf02d;" row="0"></Label> -->
             <Image src="~/assets/icon.png" class="page__content-icon" height="74" row="0" />
             <!-- <Label class="page__content-placeholder ubuntu-condensed h2" text="Selamat Datang" row="2"></Label> -->
-            <Label class="page__content-placeholder ubuntu-condensed h2" text="Buku kamu masih kosong!" row="4"></Label>
+            <Label class="page__content-placeholder ubuntu-condensed h2" text="Tidak ada data!" row="4"></Label>
 
             <Button text="&#x2b; Buat Data Baru" class="fas btn-add ubuntu-bold" height="40" width="170" tap="openUserFormPage" row="6" />
         </GridLayout>
 
-        <GridLayout class="card-list" padding="10" row="8" rows="auto, auto" columns="10, *, *, auto">
+        <GridLayout class="card-list" padding="7 0 0 0" row="8" rows="auto, auto, 10, auto" columns="10, *, *, *">
 
-            <Label text="TOTAL" class="ubuntu" row="0" col="1" />
-            <Label text="{{ summary.totalUsers + ' orang' }}" class="ubuntu-bold" row="1" col="1" />
+            <Label text="PELANGGAN" class="ubuntu" horizontalAlignment="center" row="0" col="1" />
+            <Label text="{{ summary.totalUsers + ' orang' }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="1" />
             
-            <Label text="TOTAL KASBON" class="ubuntu" row="0" col="2" />
-            <Label text="{{ 'Rp' + summary.totalKasbon }}" class="ubuntu-bold" row="1" col="2" />
+            <Label text="KASBON" class="ubuntu" horizontalAlignment="center" row="0" col="2" />
+            <Label text="{{ summary.totalQtyKasbon }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="2" />
+
+            <Label text="TOTAL" class="ubuntu" horizontalAlignment="center" row="0" col="3" />
+            <Label text="{{ 'Rp' + summary.totalKasbon }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="3" />
             
-            <Button text="&#xf200;" class="fas h2 btn-grey" tap="openReportPage" row="0" col="3" rowSpan="2" />
+            <!-- <Button text="&#xf200;" class="fas h2 btn-grey" tap="openReportPage" row="0" col="3" rowSpan="2" /> -->
         </GridLayout>
+
+        <StackLayout row="10" padding="5 0" tap="openReportPage">
+                <Label text="Lihat Laporan Lengkapnya" class="ubuntu-bold" horizontalAlignment="center" textWrap="true" />
+                <Label text="&#xf107;" class="fas" horizontalAlignment="center" />
+            </StackLayout>
     </GridLayout>
 </Page>

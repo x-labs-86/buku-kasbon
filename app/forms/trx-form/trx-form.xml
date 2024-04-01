@@ -3,17 +3,20 @@
   navigatingTo="onNavigatingTo"
   xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-  <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 20">
-    <GridLayout row="1">
-      <GridLayout columns="20, auto, 10, *, 10, auto, 0, auto, 20">
+  <GridLayout rows="20, auto, 10, auto, 15, auto, *, 15, auto, 20">
+    <GridLayout rows="auto, auto" columns="20, *, 20" row="1">
+      <GridLayout columns="0, auto, 10, *, 10, auto, 0, auto, 0" row="0" col="1">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
         <WrapLayout col="1">
-            <Label class="h1 fas" text="&#xf2bd;" />
+            <Label class="h2 fas" text="&#xf1c0;" />
         </WrapLayout>
-        <Label class="ubuntu-bold h2 secondary" text="Pelanggan Baru" col="3" />
+        <Label class="ubuntu-bold h2 secondary" text="{{ 'Trx. ' + fullname }}" col="3" />
         <!-- <Button text="Simpan" class="btn-grey-800" padding="0 20" tap="saveData" col="5" /> -->
-        <Label text="&#xf00d;" class="fas btn-grey-800-outline" padding="10" tap="cancelData" col="7" />
+        <Label text="&#xf00d;" class="fas btn-grey-800-outline" height="35" padding="10" tap="cancelData" col="7" />
       </GridLayout>
+      <StackLayout row="1" col="1">
+        <Label class="fas secondary" text="{{ '&#xf3cd; &nbsp;' + phone + '&nbsp; . &nbsp; &#xf2bb; &nbsp;' + about + '&nbsp; . &nbsp; &#xf5a0; &nbsp;' + address }}" />
+      </StackLayout>
     </GridLayout>
     
     <FlexboxLayout flexDirection="column" backgroundColor="#3c495e" marginLeft="20" marginRight="20" row="3">
@@ -33,11 +36,11 @@
         <Label text="Alamat" class="h3" margin="15 20 0 20" />
         <TextView class="text-input-outline" text="{{ address }}" hint="Alamat rumah atau alamat tinggal saat ini..." maxLines="3" />
 
-        <Button text="{{ isEdit ? 'Simpan Perubahan' : 'Simpan' }}" class="btn-grey-800" marginTop="20" padding="0 20" tap="onSubmit" /> 
+        <!-- <Button text="{{ isEdit ? 'Simpan Perubahan' : 'Simpan' }}" class="btn-grey-800" marginTop="20" padding="0 20" tap="onSubmit" /> 
 
         <Button text="Pindahkan ke Arsip" class="btn-brown-outline" marginTop="20" padding="0 20" tap="onArchived" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" />
 
-        <Button text="Hapus Permanen" class="btn-red-outline" marginTop="10" padding="0 20" tap="onDelete" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" />
+        <Button text="Hapus Permanen" class="btn-red-outline" marginTop="10" padding="0 20" tap="onDelete" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" /> -->
       </StackLayout>
     </ScrollView>
   </GridLayout>

@@ -1,4 +1,4 @@
-import { Application } from "@nativescript/core";
+import { Application, Frame } from "@nativescript/core";
 // import { ViewBase } from "@nativescript/core/ui/core/view-base";
 
 import { GlobalModel } from "~/global_model";
@@ -73,6 +73,15 @@ export function onNavigatingTo(args) {
 export function onDrawerButtonTap(args) {
   const sideDrawer = Application.getRootView();
   sideDrawer.showDrawer();
+}
+
+export function openHomePage() {
+  Frame.topmost().navigate({
+    moduleName: "home/home-page",
+    transition: {
+      name: "slideBottom",
+    },
+  });
 }
 
 export function insertButton(args) {

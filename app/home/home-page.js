@@ -18,9 +18,8 @@ export function onLoaded(args) {
 export function onNavigatingTo(args) {
   const page = args.object;
 
-  context.set("isSearchButton", false);
   context.set("isSearchBar", false);
-  _getUsers();
+  _getUsers(`WHERE archive=0 AND active=1`);
 
   console.log("shop_name", ApplicationSettings.getString("shop_name"));
 
@@ -45,11 +44,28 @@ export function openUserFormPage() {
   });
 }
 
+export function openTrxFormPage(args) {
+  // let itemIndex = args.index;
+  let itemTap = args.view;
+  let itemTapData = itemTap.bindingContext;
+
+  Frame.topmost().navigate({
+    moduleName: "forms/trx-form/trx-form",
+    transition: {
+      name: "slideTop",
+    },
+    context: {
+      originModule: "home/home-page",
+      dataForm: itemTapData,
+    },
+  });
+}
+
 export function openReportPage() {
   Frame.topmost().navigate({
     moduleName: "report/report-page",
     transition: {
-      name: "fade",
+      name: "slideTop",
     },
   });
 }
@@ -59,16 +75,21 @@ export function searchBarToggle() {
 }
 
 export function onSubmit(args) {
-  _getUsers(`WHERE fullname LIKE '%${args.object.text}%'`);
+  _getUsers(
+    `WHERE fullname LIKE '%${args.object.text}%' AND archive=0 AND active=1`
+  );
+
+  const users = context.get("users");
+  context.set("userSearchFound", users.length !== 0 ? true : false);
 }
 
 export function onClear(args) {
-  _getUsers();
+  _getUsers(`WHERE archive=0 AND active=1`);
 }
 
 function _getUsers(queryCondition = null) {
   SQL__select("users", "*", queryCondition).then((res) => {
-    let summary = { totalUsers: 0, totalKasbon: 0 };
+    let summary = { totalUsers: 0, totalQtyKasbon: 0, totalKasbon: 0 };
     res = res.map((item, index) => {
       const randomQtyKasbon = Math.floor(Math.random() * 50) + 1;
       const randomTotalKasbon = Math.floor(Math.random() * 1000000) + 1;
@@ -78,14 +99,14 @@ function _getUsers(queryCondition = null) {
       item.totalKasbon = format__number(randomTotalKasbon);
 
       summary.totalKasbon += randomTotalKasbon;
+      summary.totalQtyKasbon += randomQtyKasbon;
 
       return item;
     });
 
-    context.set("isSearchButton", res.length !== 0 ? true : false);
-
     summary.totalUsers = res.length;
     summary.totalKasbon = format__number(summary.totalKasbon);
+    summary.totalQtyKasbon = summary.totalQtyKasbon;
 
     context.set("users", res);
     context.set("isUsersEmpty", res.length === 0);
@@ -123,6 +144,7 @@ export function insertButton() {
       { field: "about", value: "NEWBIE " },
       { field: "address", value: "KUNINGAN" },
       { field: "phone", value: "081789654321" },
+      { field: "updated_date", value: get__date() },
       { field: "created_date", value: get__date() },
     ];
     SQL__insert("users", data);

@@ -3,7 +3,7 @@ import { Application, Frame } from "@nativescript/core";
 import { SQL__select } from "../sql_helper";
 import { GlobalModel } from "~/global_model";
 
-var context = new GlobalModel([{ page: "Users" }]);
+var context = new GlobalModel([{ page: "Archive" }]);
 
 export function onNavigatingTo(args) {
   const page = args.object;
@@ -11,7 +11,7 @@ export function onNavigatingTo(args) {
   context.set("isSearchButton", false);
   context.set("isSearchBar", false);
   context.set("totalUsers", 0);
-  _getUsers(`WHERE archive=0 AND active=1`);
+  _getUsers(`WHERE archive=1 AND active=0`);
 
   console.log("isSearchButton", context.isSearchButton);
 
@@ -31,7 +31,9 @@ export function openUserForm() {
     },
     context: {
       originModule: "users/users-page",
-      dataForm: null,
+      dataForm: {
+        fullname: "KANG CAHYA",
+      },
     },
   });
 }
@@ -59,12 +61,12 @@ export function searchBarToggle() {
 
 export function onSubmit(args) {
   _getUsers(
-    `WHERE fullname LIKE '%${args.object.text}%' AND archive=0 AND active=1`
+    `WHERE fullname LIKE '%${args.object.text}%' AND archive=1 AND active=0`
   );
 }
 
 export function onClear(args) {
-  _getUsers(`WHERE archive=0 AND active=1`);
+  _getUsers(`WHERE archive=1 AND active=0`);
 }
 
 function _getUsers(queryCondition = null) {

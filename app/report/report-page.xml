@@ -9,14 +9,18 @@
             <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
         </GridLayout>
     </ActionBar> -->
-    <GridLayout rows="20, 35, *">
-        <GridLayout row="1">
+    <GridLayout rows="10, auto, *">
+            <StackLayout row="1" padding="5 0" tap="openHomePage">
+                <Label text="&#xf106;" class="fas" horizontalAlignment="center" />
+                <Label text="Kembali ke Beranda" class="ubuntu-bold" horizontalAlignment="center" />
+            </StackLayout>
+        <!-- <GridLayout row="1">
             <NavigationButton visibility="hidden"></NavigationButton>
             <GridLayout columns="30, 30, *">
                 <Label class="fas" text="&#xf0c9;" fontSize="18" tap="onDrawerButtonTap" col="1"/>
                 <Label class="action-bar-title" text="Dashboard" col="2" colSpan="2"/>
             </GridLayout>
-        </GridLayout>
+        </GridLayout> -->
         <ScrollView row="2">
             <GridLayout columns="10, *, 10" rows="auto, 10, 275, 10, 275, 20">
                 <GridLayout col="1" row="0" class="card-container" paddingTop="20" columns="*, 10, *, 10, *" rows="auto">
