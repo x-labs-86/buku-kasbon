@@ -1,4 +1,9 @@
-import { Frame, Application, ApplicationSettings } from "@nativescript/core";
+import {
+  Frame,
+  Application,
+  ApplicationSettings,
+  Dialogs,
+} from "@nativescript/core";
 
 import { GlobalModel } from "~/global_model";
 import {
@@ -7,7 +12,13 @@ import {
   getCurrent__formattedDate,
   fontAwesome__parser,
 } from "~/global_helper";
-import { SQL__select, SQL__insert, SQL__truncate } from "~/sql_helper";
+import {
+  SQL__select,
+  SQL__selectRaw,
+  SQL__insert,
+  SQL__truncate,
+  SQL__query,
+} from "~/sql_helper";
 
 var context = new GlobalModel([{ page: "Home" }]);
 
@@ -19,7 +30,7 @@ export function onNavigatingTo(args) {
   const page = args.object;
 
   context.set("isSearchBar", false);
-  _getUsers(`WHERE archive=0 AND active=1`);
+  _getUsers(`WHERE u.archive=0 AND u.active=1`);
 
   console.log("shop_name", ApplicationSettings.getString("shop_name"));
 
@@ -49,16 +60,69 @@ export function openTrxFormPage(args) {
   let itemTap = args.view;
   let itemTapData = itemTap.bindingContext;
 
-  Frame.topmost().navigate({
-    moduleName: "forms/trx-form/trx-form",
-    transition: {
-      name: "slideTop",
-    },
-    context: {
-      originModule: "home/home-page",
-      dataForm: itemTapData,
-    },
+  const splitFullname = itemTapData.fullname && itemTapData.fullname.split(" ");
+  const firstName = splitFullname.length
+    ? splitFullname[0]
+    : itemTapData.fullname;
+
+  Dialogs.action({
+    title: "MENU <" + itemTapData.fullname + ">",
+    message: "<" + itemTapData.fullname + ">",
+    cancelButtonText: "BATAL",
+    actions: [
+      "Ubah Data Pelanggan",
+      "Lihat Rincian Kasbon",
+      "Buat Kasbon Baru",
+    ],
+    cancelable: false,
+  }).then((result) => {
+    console.log(result);
+    switch (result) {
+      case "Ubah Data Pelanggan":
+        Frame.topmost().navigate({
+          moduleName: "forms/user-form/user-form",
+          transition: {
+            name: "slideTop",
+          },
+          context: {
+            originModule: "home/home-page",
+            dataForm: itemTapData,
+          },
+        });
+        break;
+
+      case "Lihat Rincian Kasbon":
+        Frame.topmost().navigate({
+          moduleName: "transactions/transactions-page",
+          transition: {
+            name: "slideTop",
+          },
+          context: {
+            originModule: "home/home-page",
+            dataForm: itemTapData,
+          },
+        });
+        break;
+
+      case "Buat Kasbon Baru":
+        Frame.topmost().navigate({
+          moduleName: "forms/kasbon-form/kasbon-form",
+          transition: {
+            name: "slideTop",
+          },
+          context: {
+            originModule: "home/home-page",
+            dataForm: {
+              user_id: itemTapData.id,
+              user_fullname: itemTapData.fullname,
+            },
+          },
+        });
+        break;
+    }
   });
+
+  /*  */
 }
 
 export function openReportPage() {
@@ -76,7 +140,7 @@ export function searchBarToggle() {
 
 export function onSubmit(args) {
   _getUsers(
-    `WHERE fullname LIKE '%${args.object.text}%' AND archive=0 AND active=1`
+    `WHERE u.fullname LIKE '%${args.object.text}%' AND u.archive=0 AND u.active=1`
   );
 
   const users = context.get("users");
@@ -84,26 +148,31 @@ export function onSubmit(args) {
 }
 
 export function onClear(args) {
-  _getUsers(`WHERE archive=0 AND active=1`);
+  _getUsers(`WHERE u.archive=0 AND u.active=1`);
 }
 
 function _getUsers(queryCondition = null) {
-  SQL__select("users", "*", queryCondition).then((res) => {
+  const query =
+    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id " +
+    queryCondition +
+    " GROUP BY u.id, u.avatar, u.fullname";
+
+  SQL__selectRaw(query).then((res) => {
     let summary = { totalUsers: 0, totalQtyKasbon: 0, totalKasbon: 0 };
     res = res.map((item, index) => {
-      const randomQtyKasbon = Math.floor(Math.random() * 50) + 1;
-      const randomTotalKasbon = Math.floor(Math.random() * 1000000) + 1;
-
       // item.avatar = String.fromCharCode(parseInt(item.avatar, 16));
-      item.qtyKasbon = randomQtyKasbon;
-      item.totalKasbon = format__number(randomTotalKasbon);
+      item.qtyKasbon = item.total_bukukasbon;
+      item.totalKasbon = item.total_payment_bukukasbon
+        ? format__number(item.total_payment_bukukasbon)
+        : 0;
 
-      summary.totalKasbon += randomTotalKasbon;
-      summary.totalQtyKasbon += randomQtyKasbon;
+      summary.totalKasbon += item.total_payment_bukukasbon;
+      summary.totalQtyKasbon += item.total_bukukasbon;
 
       return item;
     });
 
+    console.log("res users join ", res);
     summary.totalUsers = res.length;
     summary.totalKasbon = format__number(summary.totalKasbon);
     summary.totalQtyKasbon = summary.totalQtyKasbon;
@@ -112,6 +181,50 @@ function _getUsers(queryCondition = null) {
     context.set("isUsersEmpty", res.length === 0);
     context.set("summary", summary);
   });
+
+  /* SQL__select("bukukasbon", "*").then((res) => {
+    console.log("bukukasbon ", res);
+  }); */
+  // SQL__select("users", "*", queryCondition).then((res) => {
+  //   let summary = { totalUsers: 0, totalQtyKasbon: 0, totalKasbon: 0 };
+  //   res = res.map((item, index) => {
+  //     const randomQtyKasbon = Math.floor(Math.random() * 50) + 1;
+  //     const randomTotalKasbon = Math.floor(Math.random() * 1000000) + 1;
+
+  //     // item.avatar = String.fromCharCode(parseInt(item.avatar, 16));
+  //     item.qtyKasbon = randomQtyKasbon;
+  //     item.totalKasbon = format__number(randomTotalKasbon);
+
+  //     summary.totalKasbon += randomTotalKasbon;
+  //     summary.totalQtyKasbon += randomQtyKasbon;
+
+  //     return item;
+  //   });
+
+  //   summary.totalUsers = res.length;
+  //   summary.totalKasbon = format__number(summary.totalKasbon);
+  //   summary.totalQtyKasbon = summary.totalQtyKasbon;
+
+  //   context.set("users", res);
+  //   context.set("isUsersEmpty", res.length === 0);
+  //   context.set("summary", summary);
+  // });
+}
+
+function _getBukuKasbonByUserId(user_id = null) {
+  let response = { qtyKasbon: 0, totalKasbon: 0 };
+  if (!user_id) return response;
+
+  const queryCondition = `WHERE user_id=${user_id}`;
+
+  SQL__select("bukukasbon", "*", queryCondition).then((res) => {
+    res.foreach((item) => {
+      response.qtyKasbon += item.total_payment;
+    });
+    response.totalKasbon += res.length;
+  });
+
+  return response;
 }
 
 export function insertButton() {

@@ -1,0 +1,39 @@
+<Page 
+  loaded="onLoaded"
+  navigatingTo="onNavigatingTo"
+  xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
+
+  <GridLayout rows="20, auto, 10, auto, 15, auto, *, 15, auto, 20">
+    <GridLayout row="1">
+      <GridLayout rows="auto, 0, auto" columns="20, auto, 10, *, 10, auto, 0, auto, 20">
+        <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
+        <WrapLayout row="0" col="1">
+            <Label class="h2 fas" text="&#xf1c0;" />
+        </WrapLayout>
+        <Label class="ubuntu-bold h2 secondary" text="Kasbon Baru" row="0" col="3" />
+        <!-- <Button text="Simpan" class="btn-grey-800" padding="0 20" tap="saveData" col="5" /> -->
+        <Label text="&#xf00d;" class="fas btn-grey-800-outline" padding="10" tap="cancelData" row="0" col="7" />
+        <Label class="ubuntu secondary" text="{{ 'UNTUK <' + user_fullname + '>' }}" row="2" col="3" />
+      </GridLayout>
+    </GridLayout>
+    
+    <FlexboxLayout flexDirection="column" backgroundColor="#3c495e" marginLeft="20" marginRight="20" row="3">
+        <Label text="" height="1" backgroundColor="#FBC02D" />
+    </FlexboxLayout>
+    <ScrollView row="5">
+      <StackLayout>
+        <Label text="Nama Kasbon" class="h3" margin="0 20" />
+        <TextField class="text-input-outline" text="{{ kasbon_name }}" hint="" />
+
+        <Label text="Total Kasbon" class="h3" margin="15 20 0 20" />
+        <TextField class="text-input-outline" text="{{ total_payment }}" keyboardType="number" hint="" />
+
+        <Button text="{{ isEdit ? 'Simpan Perubahan' : 'Simpan' }}" class="btn-grey-800" marginTop="20" padding="0 20" tap="onSubmit" /> 
+
+        <Button text="Pindahkan ke Arsip" class="btn-brown-outline" marginTop="20" padding="0 20" tap="onArchived" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" />
+
+        <Button text="Hapus Permanen" class="btn-red-outline" marginTop="10" padding="0 20" tap="onDelete" visibility="{{ isEdit ? 'visible' : 'collapsed' }}" />
+      </StackLayout>
+    </ScrollView>
+  </GridLayout>
+</Page>

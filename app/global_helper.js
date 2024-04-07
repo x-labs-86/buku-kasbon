@@ -25,6 +25,7 @@ export function init__tables() {
     "user_id"	INTEGER NOT NULL,
     "total_payment"	REAL NOT NULL,
     "kasbon_name"	TEXT NOT NULL,
+    "archive"	INTEGER NOT NULL DEFAULT 0,
     "created_date"	TEXT NOT NULL,
     "updated_date"	TEXT NOT NULL,
     PRIMARY KEY("id" AUTOINCREMENT)
@@ -36,7 +37,15 @@ export function init__tables() {
     "bukukasbon_id"	INTEGER NOT NULL,
     "paid"	REAL NOT NULL,
     "created_date"	TEXT NOT NULL,
-    "correction"	INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY("id" AUTOINCREMENT)
+  )`);
+
+  SQL__query(`CREATE TABLE IF NOT EXISTS "bukukasbon_trx_correction" (
+    "id"	INTEGER NOT NULL UNIQUE,
+    "bukukasbon_trx_id"	INTEGER NOT NULL,
+    "old_value"	REAL NOT NULL,
+    "new_value"	REAL NOT NULL,
+    "created_date"	TEXT NOT NULL,
     PRIMARY KEY("id" AUTOINCREMENT)
   )`);
 }

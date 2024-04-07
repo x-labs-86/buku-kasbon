@@ -1,17 +1,50 @@
-<Page
-    navigatingTo="onNavigatingTo"
-    xmlns="http://schemas.nativescript.org/tns.xsd">
+<Page 
+  loaded="onLoaded"
+  navigatingTo="onNavigatingTo"
+  xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-    <ActionBar>
-        <NavigationButton visibility="hidden"></NavigationButton>
-        <GridLayout columns="50, *">
-            <Label class="action-bar-title" text="Search" colSpan="2"/>
-            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
-        </GridLayout>
-    </ActionBar>
-
-    <GridLayout class="page__content">
-        <Label class="page__content-icon fas" text="&#xf002;"></Label>
-        <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+  <GridLayout rows="20, auto, 20, auto, 10, auto, 15, auto, *, 15, auto, 20">
+    <GridLayout rows="auto, auto" columns="20, *, 20" row="1">
+      <GridLayout columns="0, auto, 10, *, 10, auto, 0, auto, 0" row="0" col="1">
+        <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
+        <WrapLayout col="1">
+            <Label class="h2 fas" text="&#xf1c0;" />
+        </WrapLayout>
+        <Label class="ubuntu-bold h2 secondary" text="{{ 'Trx. ' + fullname }}" col="3" />
+        <!-- <Button text="Simpan" class="btn-grey-800" padding="0 20" tap="saveData" col="5" /> -->
+        <Label text="&#xf00d;" class="fas btn-grey-800-outline" height="35" padding="10" tap="cancelData" col="7" />
+      </GridLayout>
+      <StackLayout row="1" col="1">
+        <Label class="fas secondary" text="{{ '&#xf3cd; &nbsp;' + phone + '&nbsp; . &nbsp; &#xf2bb; &nbsp;' + about + '&nbsp; . &nbsp; &#xf5a0; &nbsp;' + address }}" />
+      </StackLayout>
     </GridLayout>
+    
+    <GridLayout rows="auto, auto" columns="auto, *" backgroundColor="#FBC02D" margin="0 20" padding="10" borderRadius="10" row="3">
+      <StackLayout width="100" padding="15 20" backgroundColor="#FFF" borderRadius="50" row="0" col="0">
+        <Label text="20%" color="#000" fontSize="24" horizontalAlignment="center"  />
+        <Label text="10 dari 50" color="#000" horizontalAlignment="center" />
+      </StackLayout>
+      <Label text="Masih ada Kasbon" color="#000" fontSize="20" horizontalAlignment="center" row="0" col="1" />
+      
+    </GridLayout>
+    <GridLayout columns="*, *" row="5" margin="0 10">
+        <Button text="Ubah data pelanggan" backgroundColor="#333" color="#fff" borderRadius="10" col="0" />
+        <Button text="Tambah Kasbon baru" backgroundColor="#333" color="#fff" borderRadius="10" col="1" />
+      </GridLayout>
+    <ScrollView row="7">
+      <StackLayout>
+        <!-- <Label text="Nama Lengkap" class="h3" margin="0 20" />
+        <TextField class="text-input-outline" text="{{ fullname }}" hint="Siapa namanya?" />
+
+        <Label text="No. HP" class="h3" margin="15 20 0 20" />
+        <TextField class="text-input-outline" text="{{ phone }}" keyboardType="number" hint="081xxxxxxxxx" />
+
+        <Label text="Tentang" class="h3" margin="15 20 0 20" />
+        <TextView class="text-input-outline" text="{{ about }}" hint="Informasi umur, pekerjaan atau yang lainnya..." maxLines="3" />
+
+        <Label text="Alamat" class="h3" margin="15 20 0 20" />
+        <TextView class="text-input-outline" text="{{ address }}" hint="Alamat rumah atau alamat tinggal saat ini..." maxLines="3" /> -->
+      </StackLayout>
+    </ScrollView>
+  </GridLayout>
 </Page>

@@ -22,11 +22,16 @@ export function onNavigatingTo(args) {
 
   console.log("navData", navData);
 
-  context.set("fullname", navData.dataForm && navData.dataForm.fullname);
-  context.set("phone", navData.dataForm && navData.dataForm.phone);
-  context.set("about", navData.dataForm && navData.dataForm.about);
-  context.set("address", navData.dataForm && navData.dataForm.address);
-  context.set("created_date", created__date());
+  context.set("user_id", navData.dataForm && navData.dataForm.user_id);
+  context.set(
+    "user_fullname",
+    navData.dataForm && navData.dataForm.user_fullname
+  );
+  context.set(
+    "total_payment",
+    navData.dataForm && navData.dataForm.total_payment
+  );
+  context.set("kasbon_name", navData.dataForm && navData.dataForm.kasbon_name);
 
   context.set("isEdit", navData.dataForm && navData.dataForm.id ? true : false);
 
@@ -47,16 +52,14 @@ function __insertData() {
     return;
   }
   const data = [
-    { field: "avatar", value: fontAwesome__parser("f007") },
-    { field: "fullname", value: context.get("fullname") },
-    { field: "phone", value: context.get("phone") },
-    { field: "about", value: context.get("about") },
-    { field: "address", value: context.get("address") },
+    { field: "user_id", value: context.get("user_id") },
+    { field: "total_payment", value: context.get("total_payment") },
+    { field: "kasbon_name", value: context.get("kasbon_name") },
     { field: "updated_date", value: created__date() },
     { field: "created_date", value: created__date() },
   ];
-  SQL__insert("users", data);
-  snackbar("Data pelanggan berhasil disimpan.", "success");
+  SQL__insert("bukukasbon", data);
+  snackbar("Data kasbon berhasil disimpan.", "success");
   cancelData();
 }
 
@@ -66,14 +69,12 @@ function __updateData(id) {
     return;
   }
   const data = [
-    { field: "fullname", value: context.get("fullname") },
-    { field: "phone", value: context.get("phone") },
-    { field: "about", value: context.get("about") },
-    { field: "address", value: context.get("address") },
+    { field: "total_payment", value: context.get("total_payment") },
+    { field: "kasbon_name", value: context.get("kasbon_name") },
     { field: "updated_date", value: created__date() },
   ];
-  SQL__update("users", data, id);
-  snackbar("Data pelanggan berhasil diperbaharui.", "success");
+  SQL__update("bukukasbon", data, id);
+  snackbar("Data kasbon berhasil diperbaharui.", "success");
   cancelData();
 }
 
@@ -95,7 +96,7 @@ export function cancelData() {
 export function onArchived() {
   Dialogs.confirm({
     title: "Konfirmasi!",
-    message: "Arsipkan data pelanggan ini?",
+    message: "Arsipkan data kasbon ini?",
     okButtonText: "Ya",
     cancelButtonText: "Tidak",
     neutralButtonText: "Batal",
@@ -104,11 +105,10 @@ export function onArchived() {
       if (navData.dataForm && navData.dataForm.id) {
         const data = [
           { field: "archive", value: 1 },
-          { field: "active", value: 0 },
           { field: "updated_date", value: created__date() },
         ];
-        SQL__update("users", data, navData.dataForm.id);
-        snackbar("Data pelanggan berhasil diarsipkan.", "success");
+        SQL__update("bukukasbon", data, navData.dataForm.id);
+        snackbar("Data kasbon berhasil diarsipkan.", "success");
 
         setTimeout(() => {
           cancelData();
@@ -123,7 +123,7 @@ export function onDelete() {
   Dialogs.confirm({
     title: "Konfirmasi!",
     message:
-      "Apakah kamu ingin menghapus pelanggan ini, kamu akan kehilangan data ini secara permanen?",
+      "Apakah kamu ingin menghapus kasbon ini, kamu akan kehilangan data ini secara permanen?",
     okButtonText: "Ya",
     cancelButtonText: "Tidak",
     neutralButtonText: "Batal",
@@ -131,7 +131,7 @@ export function onDelete() {
     if (result) {
       if (navData.dataForm && navData.dataForm.id) {
         SQL__delete("users", navData.dataForm.id);
-        snackbar("Data pelanggan berhasil dihapus secara permanen.", "success");
+        snackbar("Data kasbon berhasil dihapus secara permanen.", "success");
 
         setTimeout(() => {
           cancelData();

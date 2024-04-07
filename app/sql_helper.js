@@ -33,6 +33,24 @@ export async function SQL__select(
   }
 }
 
+export async function SQL__selectRaw(query = null) {
+  if (!query) {
+    console.log("No query");
+    return;
+  }
+
+  let selectQuery = query;
+
+  try {
+    const data = await sqlite.select(selectQuery);
+    return data;
+  } catch (error) {
+    if (showError) {
+      console.log("SQL__selectRaw error >> ", error);
+    }
+  }
+}
+
 export async function SQL__insert(table, data = []) {
   if (!data.length) {
     console.dir("Data : ", data);
@@ -137,7 +155,7 @@ export async function SQL__truncate(table) {
 
 export async function SQL__query(query) {
   try {
-    const data = await sqlite.execute(query);
+    const data = await sqlite.execute(query, null);
     return data;
   } catch (error) {
     if (showError) {
