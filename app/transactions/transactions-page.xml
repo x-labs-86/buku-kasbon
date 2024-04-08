@@ -3,48 +3,50 @@
   navigatingTo="onNavigatingTo"
   xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-  <GridLayout rows="20, auto, 20, auto, 10, auto, 15, auto, *, 15, auto, 20">
-    <GridLayout rows="auto, auto" columns="20, *, 20" row="1">
+  <GridLayout rows="20, auto, 20, auto, 10, auto, 15, *, 15, auto, 20" columns="20, *, 20">
+    <GridLayout rows="auto, auto" columns="0, *, 0" row="1" col="1">
       <GridLayout columns="0, auto, 10, *, 10, auto, 0, auto, 0" row="0" col="1">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
         <WrapLayout col="1">
-            <Label class="h2 fas" text="&#xf1c0;" />
+            <Label class="h2 fas" text="{{ avatar }}" />
         </WrapLayout>
-        <Label class="ubuntu-bold h2 secondary" text="{{ 'Trx. ' + fullname }}" col="3" />
+        <Label class="ubuntu-bold h2 secondary" text="{{ fullname }}" col="3" />
         <!-- <Button text="Simpan" class="btn-grey-800" padding="0 20" tap="saveData" col="5" /> -->
-        <Label text="&#xf00d;" class="fas btn-grey-800-outline" height="35" padding="10" tap="cancelData" col="7" />
+        <Label text="&#xf00d;" class="fas btn-grey-800-outline" height="35" padding="10" tap="backHome" col="7" />
       </GridLayout>
-      <StackLayout row="1" col="1">
-        <Label class="fas secondary" text="{{ '&#xf3cd; &nbsp;' + phone + '&nbsp; . &nbsp; &#xf2bb; &nbsp;' + about + '&nbsp; . &nbsp; &#xf5a0; &nbsp;' + address }}" />
-      </StackLayout>
+      <GridLayout columns="auto, 10, auto, 10, auto" row="1" col="1">
+        <Label class="fas secondary" text="{{ '&#xf3cd; &nbsp;' + phone }}" col="0" />
+        <Label class="fas secondary" text="{{ '&#xf2bb; &nbsp;' + about }}" col="2" />
+        <Label class="fas secondary" text="{{ '&#xf5a0; &nbsp;' + address }}" col="4" />
+      </GridLayout>
     </GridLayout>
     
-    <GridLayout rows="auto, auto" columns="auto, *" backgroundColor="#FBC02D" margin="0 20" padding="10" borderRadius="10" row="3">
+    <GridLayout rows="auto, auto" columns="auto, *" backgroundColor="#FBC02D" padding="10" borderRadius="10" row="3" col="1">
       <StackLayout width="100" padding="15 20" backgroundColor="#FFF" borderRadius="50" row="0" col="0">
         <Label text="20%" color="#000" fontSize="24" horizontalAlignment="center"  />
         <Label text="10 dari 50" color="#000" horizontalAlignment="center" />
       </StackLayout>
       <Label text="Masih ada Kasbon" color="#000" fontSize="20" horizontalAlignment="center" row="0" col="1" />
-      
     </GridLayout>
-    <GridLayout columns="*, *" row="5" margin="0 10">
-        <Button text="Ubah data pelanggan" backgroundColor="#333" color="#fff" borderRadius="10" col="0" />
-        <Button text="Tambah Kasbon baru" backgroundColor="#333" color="#fff" borderRadius="10" col="1" />
-      </GridLayout>
-    <ScrollView row="7">
-      <StackLayout>
-        <!-- <Label text="Nama Lengkap" class="h3" margin="0 20" />
-        <TextField class="text-input-outline" text="{{ fullname }}" hint="Siapa namanya?" />
 
-        <Label text="No. HP" class="h3" margin="15 20 0 20" />
-        <TextField class="text-input-outline" text="{{ phone }}" keyboardType="number" hint="081xxxxxxxxx" />
+    <GridLayout columns="*, auto" row="5" col="1">
+      <Label class="ubuntu-bold" text="Data Kasbon" row="1" />
+      <Label text="Tambah Kasbon baru" borderStyle="solid" borderWidth="1" borderColor="#333" borderRadius="10" padding="5 10" tap="openKasbonForm" col="1" />
+    </GridLayout>
 
-        <Label text="Tentang" class="h3" margin="15 20 0 20" />
-        <TextView class="text-input-outline" text="{{ about }}" hint="Informasi umur, pekerjaan atau yang lainnya..." maxLines="3" />
-
-        <Label text="Alamat" class="h3" margin="15 20 0 20" />
-        <TextView class="text-input-outline" text="{{ address }}" hint="Alamat rumah atau alamat tinggal saat ini..." maxLines="3" /> -->
-      </StackLayout>
-    </ScrollView>
+    <GridLayout row="7" col="1" rows="*" visibility="{{ !isKasbonEmpty ? 'visible' : 'collapsed' }}">
+      <ListView items="{{ kasbon }}" itemTap="openMenuOnList" separatorColor="#9e9e9e" row="0">
+        <ListView.itemTemplate>
+          <GridLayout columns="*, auto">
+            <Label text="{{ kasbon_name }}" class="ubuntu" col="0" />
+            <Label text="{{ total_payment_formatted }}" class="ubuntu" col="1" />
+          </GridLayout>
+        </ListView.itemTemplate>
+      </ListView>
+    </GridLayout>
+    <GridLayout row="7" col="1" rows="40, auto, 20, auto" class="page__content" visibility="{{ isKasbonEmpty ? 'visible' : 'collapsed' }}">
+      <Label class="page__content-icon fas" text="&#xf1c0;" row="1"></Label>
+      <Label class="page__content-placeholder ubuntu-condensed h2" text="Tidak ada data!" row="3"></Label>
+    </GridLayout>
   </GridLayout>
 </Page>

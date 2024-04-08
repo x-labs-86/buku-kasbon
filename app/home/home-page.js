@@ -55,7 +55,7 @@ export function openUserFormPage() {
   });
 }
 
-export function openTrxFormPage(args) {
+export function openMenuOnList(args) {
   // let itemIndex = args.index;
   let itemTap = args.view;
   let itemTapData = itemTap.bindingContext;
@@ -181,34 +181,6 @@ function _getUsers(queryCondition = null) {
     context.set("isUsersEmpty", res.length === 0);
     context.set("summary", summary);
   });
-
-  /* SQL__select("bukukasbon", "*").then((res) => {
-    console.log("bukukasbon ", res);
-  }); */
-  // SQL__select("users", "*", queryCondition).then((res) => {
-  //   let summary = { totalUsers: 0, totalQtyKasbon: 0, totalKasbon: 0 };
-  //   res = res.map((item, index) => {
-  //     const randomQtyKasbon = Math.floor(Math.random() * 50) + 1;
-  //     const randomTotalKasbon = Math.floor(Math.random() * 1000000) + 1;
-
-  //     // item.avatar = String.fromCharCode(parseInt(item.avatar, 16));
-  //     item.qtyKasbon = randomQtyKasbon;
-  //     item.totalKasbon = format__number(randomTotalKasbon);
-
-  //     summary.totalKasbon += randomTotalKasbon;
-  //     summary.totalQtyKasbon += randomQtyKasbon;
-
-  //     return item;
-  //   });
-
-  //   summary.totalUsers = res.length;
-  //   summary.totalKasbon = format__number(summary.totalKasbon);
-  //   summary.totalQtyKasbon = summary.totalQtyKasbon;
-
-  //   context.set("users", res);
-  //   context.set("isUsersEmpty", res.length === 0);
-  //   context.set("summary", summary);
-  // });
 }
 
 function _getBukuKasbonByUserId(user_id = null) {

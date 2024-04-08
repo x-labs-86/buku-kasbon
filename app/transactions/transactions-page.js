@@ -2,13 +2,13 @@ import { Frame, Dialogs } from "@nativescript/core";
 import {
   getCurrent__formattedDate,
   created__date,
-  fontAwesome__parser,
+  format__number,
   snackbar,
 } from "~/global_helper";
 import { GlobalModel } from "~/global_model";
-import { SQL__insert, SQL__update, SQL__delete } from "~/sql_helper";
+import { SQL__select, SQL__update, SQL__delete } from "~/sql_helper";
 
-var context = new GlobalModel([{ page: "Form-user" }]),
+var context = new GlobalModel([{ page: "Transactions" }]),
   navData;
 
 export function onLoaded(args) {
@@ -20,124 +20,172 @@ export function onNavigatingTo(args) {
 
   navData = page.navigationContext;
 
-  console.log("navData", navData);
+  console.log("navData transactions >> ", navData);
 
+  context.set("user_id", navData.dataForm && navData.dataForm.id);
+  context.set("avatar", navData.dataForm && navData.dataForm.avatar);
   context.set("fullname", navData.dataForm && navData.dataForm.fullname);
   context.set("phone", navData.dataForm && navData.dataForm.phone);
   context.set("about", navData.dataForm && navData.dataForm.about);
   context.set("address", navData.dataForm && navData.dataForm.address);
-  context.set("created_date", created__date());
 
-  context.set("isEdit", navData.dataForm && navData.dataForm.id ? true : false);
+  reload();
 
   page.bindingContext = context;
 }
 
-export function onSubmit() {
-  if (navData.dataForm && navData.dataForm.id) {
-    __updateData(navData.dataForm.id);
-  } else {
-    __insertData();
-  }
-}
-
-function __insertData() {
-  if (context.get("fullname") == "" && context.get("phone") == "") {
-    snackbar("Nama dan Ho. HP tidak boleh kosong!", "error");
-    return;
-  }
-  const data = [
-    { field: "avatar", value: fontAwesome__parser("f007") },
-    { field: "fullname", value: context.get("fullname") },
-    { field: "phone", value: context.get("phone") },
-    { field: "about", value: context.get("about") },
-    { field: "address", value: context.get("address") },
-    { field: "updated_date", value: created__date() },
-    { field: "created_date", value: created__date() },
-  ];
-  SQL__insert("users", data);
-  snackbar("Data pelanggan berhasil disimpan.", "success");
-  cancelData();
-}
-
-function __updateData(id) {
-  if (context.get("fullname") == "" && context.get("phone") == "") {
-    snackbar("Nama dan Ho. HP tidak boleh kosong!", "error");
-    return;
-  }
-  const data = [
-    { field: "fullname", value: context.get("fullname") },
-    { field: "phone", value: context.get("phone") },
-    { field: "about", value: context.get("about") },
-    { field: "address", value: context.get("address") },
-    { field: "updated_date", value: created__date() },
-  ];
-  SQL__update("users", data, id);
-  snackbar("Data pelanggan berhasil diperbaharui.", "success");
-  cancelData();
-}
-
-export function cancelData() {
-  if (navData && navData.originModule) {
-    Frame.topmost().navigate({
-      moduleName: navData.originModule,
-      transition: {
-        name: "slideBottom",
+export function openKasbonForm() {
+  Frame.topmost().navigate({
+    moduleName: "forms/kasbon-form/kasbon-form",
+    transition: {
+      name: "slideTop",
+    },
+    context: {
+      originModule: "transactions/transactions-page",
+      dataForm: {
+        user_id: navData.dataForm.id,
+        user_fullname: navData.dataForm.fullname,
+        // id: navData.dataForm.id,
+        avatar: navData.dataForm.avatar,
+        fullname: navData.dataForm.fullname,
+        phone: navData.dataForm.phone,
+        about: navData.dataForm.about,
+        address: navData.dataForm.address,
       },
-      clearHistory: true,
-    });
-  } else {
-    // Frame.topmost().goBack();
-    alert("Origin Module tidak ditemukan!");
-  }
-}
-
-export function onArchived() {
-  Dialogs.confirm({
-    title: "Konfirmasi!",
-    message: "Arsipkan data pelanggan ini?",
-    okButtonText: "Ya",
-    cancelButtonText: "Tidak",
-    neutralButtonText: "Batal",
-  }).then((result) => {
-    if (result) {
-      if (navData.dataForm && navData.dataForm.id) {
-        const data = [
-          { field: "archive", value: 1 },
-          { field: "active", value: 0 },
-          { field: "updated_date", value: created__date() },
-        ];
-        SQL__update("users", data, navData.dataForm.id);
-        snackbar("Data pelanggan berhasil diarsipkan.", "success");
-
-        setTimeout(() => {
-          cancelData();
-        }, 1000);
-      }
-    }
-    console.log(result);
+    },
   });
 }
 
-export function onDelete() {
+function reload() {
+  _getBukukasbon("WHERE archive=0 AND user_id=" + context.get("user_id"));
+}
+
+function _getBukukasbon(queryCondition = null) {
+  SQL__select("bukukasbon", "*", queryCondition).then((res) => {
+    res = res.map((item, index) => {
+      item.total_payment_formatted =
+        "Rp. " + format__number(item.total_payment);
+
+      return item;
+    });
+    console.log(res);
+    context.set("kasbon", res);
+    context.set("isKasbonEmpty", res.length == 0);
+  });
+}
+
+export function backHome() {
+  Frame.topmost().navigate({
+    moduleName: "home/home-page",
+    transition: {
+      name: "slideBottom",
+    },
+    clearHistory: true,
+  });
+}
+
+export function openMenuOnList(args) {
+  // let itemIndex = args.index;
+  let itemTap = args.view;
+  let itemTapData = itemTap.bindingContext;
+
+  const splitKasbonName =
+    itemTapData.kasbon_name && itemTapData.kasbon_name.split(" ");
+  const firstWord = splitKasbonName.length
+    ? splitKasbonName[0]
+    : itemTapData.kasbon_name;
+
+  Dialogs.action({
+    title: "MENU <" + firstWord + ">",
+    message: "<" + itemTapData.fullname + ">",
+    cancelButtonText: "BATAL",
+    actions: ["Bayar Kasbon", "Ubah", "Arsipkan", "Hapus Permanen"],
+    cancelable: false,
+  }).then((result) => {
+    console.log(result);
+    switch (result) {
+      case "Bayar Kasbon":
+        console.log("Bayar Kasbon");
+        break;
+
+      case "Ubah":
+        Frame.topmost().navigate({
+          moduleName: "forms/kasbon-form/kasbon-form",
+          transition: {
+            name: "slideTop",
+          },
+          context: {
+            originModule: "transactions/transactions-page",
+            dataForm: {
+              ...{
+                user_id: navData.dataForm.id,
+                user_fullname: navData.dataForm.fullname,
+                avatar: navData.dataForm.avatar,
+                fullname: navData.dataForm.fullname,
+                phone: navData.dataForm.phone,
+                about: navData.dataForm.about,
+                address: navData.dataForm.address,
+              },
+              ...itemTapData,
+            },
+          },
+        });
+        break;
+
+      case "Arsipkan":
+        __onArchived(itemTapData.id);
+        break;
+
+      case "Hapus Permanen":
+        __onDelete(itemTapData.id);
+        break;
+    }
+  });
+}
+
+function __onArchived(id) {
   Dialogs.confirm({
     title: "Konfirmasi!",
-    message:
-      "Apakah kamu ingin menghapus pelanggan ini, kamu akan kehilangan data ini secara permanen?",
+    message: "Arsipkan data kasbon ini?",
     okButtonText: "Ya",
     cancelButtonText: "Tidak",
     neutralButtonText: "Batal",
   }).then((result) => {
     if (result) {
-      if (navData.dataForm && navData.dataForm.id) {
-        SQL__delete("users", navData.dataForm.id);
-        snackbar("Data pelanggan berhasil dihapus secara permanen.", "success");
+      if (id) {
+        const data = [
+          { field: "archive", value: 1 },
+          { field: "updated_date", value: created__date() },
+        ];
+        SQL__update("bukukasbon", data, id);
+        snackbar("Data kasbon berhasil diarsipkan.", "success");
 
         setTimeout(() => {
-          cancelData();
+          reload();
         }, 1000);
       }
     }
-    console.log(result);
+  });
+}
+
+function __onDelete(id) {
+  Dialogs.confirm({
+    title: "Konfirmasi!",
+    message:
+      "Apakah kamu ingin menghapus kasbon ini, kamu akan kehilangan data ini secara permanen?",
+    okButtonText: "Ya",
+    cancelButtonText: "Tidak",
+    neutralButtonText: "Batal",
+  }).then((result) => {
+    if (result) {
+      if (id) {
+        SQL__delete("bukukasbon", id);
+        snackbar("Data kasbon berhasil dihapus secara permanen.", "success");
+
+        setTimeout(() => {
+          reload();
+        }, 1000);
+      }
+    }
   });
 }
