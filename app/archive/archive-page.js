@@ -13,7 +13,7 @@ export function onNavigatingTo(args) {
   context.set("totalUsers", 0);
   _getUsers(`WHERE archive=1 AND active=0`);
 
-  console.log("isSearchButton", context.isSearchButton);
+  // console.log("isSearchButton", context.isSearchButton);
 
   page.bindingContext = context;
 }

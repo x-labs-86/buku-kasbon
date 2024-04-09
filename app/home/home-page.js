@@ -32,7 +32,7 @@ export function onNavigatingTo(args) {
   context.set("isSearchBar", false);
   _getUsers(`WHERE u.archive=0 AND u.active=1`);
 
-  console.log("shop_name", ApplicationSettings.getString("shop_name"));
+  // console.log("shop_name", ApplicationSettings.getString("shop_name"));
 
   page.bindingContext = context;
 }
@@ -76,7 +76,7 @@ export function openMenuOnList(args) {
     ],
     cancelable: false,
   }).then((result) => {
-    console.log(result);
+    // console.log(result);
     switch (result) {
       case "Ubah Data Pelanggan":
         Frame.topmost().navigate({
@@ -172,7 +172,7 @@ function _getUsers(queryCondition = null) {
       return item;
     });
 
-    console.log("res users join ", res);
+    // console.log("res users join ", res);
     summary.totalUsers = res.length;
     summary.totalKasbon = format__number(summary.totalKasbon);
     summary.totalQtyKasbon = summary.totalQtyKasbon;
@@ -240,18 +240,18 @@ export function insertButton() {
 
 export function selectButton(args) {
   SQL__select("users").then((res) => {
-    console.log("DATA >>> ", res);
-    console.log("TOTAL >>> ", res.length);
+    // console.log("DATA >>> ", res);
+    // console.log("TOTAL >>> ", res.length);
   });
 }
 
 export function truncateButton(args) {
   SQL__truncate("users");
-  console.log("Truncated");
+  // console.log("Truncated");
 
   _getUsers();
 }
 
 export function openModalAddData() {
-  console.log("tap");
+  // console.log("tap");
 }

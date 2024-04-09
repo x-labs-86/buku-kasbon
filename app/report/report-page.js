@@ -99,16 +99,16 @@ export function insertButton(args) {
 
 export function selectButton(args) {
   SQL__select("users").then((res) => {
-    console.log("DATA >>> ", res);
-    console.log("TOTAL >>> ", res.length);
+    // console.log("DATA >>> ", res);
+    // console.log("TOTAL >>> ", res.length);
   });
 }
 
 export function truncateButton(args) {
   SQL__truncate("users");
-  console.log("Truncated");
+  // console.log("Truncated");
 }
 
 export function openModalAddData() {
-  console.log("tap");
+  // console.log("tap");
 }

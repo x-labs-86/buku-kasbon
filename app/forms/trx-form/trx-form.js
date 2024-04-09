@@ -20,7 +20,7 @@ export function onNavigatingTo(args) {
 
   navData = page.navigationContext;
 
-  console.log("navData", navData);
+  // console.log("navData", navData);
 
   context.set("fullname", navData.dataForm && navData.dataForm.fullname);
   context.set("phone", navData.dataForm && navData.dataForm.phone);
@@ -115,7 +115,7 @@ export function onArchived() {
         }, 1000);
       }
     }
-    console.log(result);
+    // console.log(result);
   });
 }
 
@@ -138,6 +138,6 @@ export function onDelete() {
         }, 1000);
       }
     }
-    console.log(result);
+    // console.log(result);
   });
 }

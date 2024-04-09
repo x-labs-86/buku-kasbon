@@ -1,4 +1,5 @@
 import { SQL__query } from "~/sql_helper";
+import { Frame, Application, AndroidApplication } from "@nativescript/core";
 import { SnackBar } from "@nativescript-community/ui-material-snackbar";
 
 export function init__tables() {
@@ -206,4 +207,39 @@ export function snackbar(msg, type, delay = 2000) {
     backgroundColor: typeOptions.backgroundColor,
     hideDelay: delay,
   });
+}
+
+export function handle__BackButton(defaultBack = true, backOptions) {
+  if (Application.android) {
+    if (defaultBack) {
+      Application.android.on(
+        AndroidApplication.activityBackPressedEvent,
+        (args) => {
+          args.cancel = true;
+          Frame.topmost().goBack();
+        }
+      );
+    } else {
+      Application.android.on(
+        AndroidApplication.activityBackPressedEvent,
+        (args) => {
+          args.cancel = true;
+
+          const {
+            originModule,
+            transition = "slideBottom",
+            clearHistory = false,
+          } = backOptions;
+
+          Frame.topmost().navigate({
+            moduleName: originModule,
+            transition: {
+              name: transition,
+            },
+            clearHistory: clearHistory,
+          });
+        }
+      );
+    }
+  }
 }

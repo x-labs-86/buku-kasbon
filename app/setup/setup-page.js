@@ -24,11 +24,11 @@ export function onNavigatingTo(args) {
   context.set("f3_slide", false);
   context.set("form_slide", false);
 
-  console.log("logo_slide", context.get("logo_slide"));
-  console.log("f1_slide", context.get("f1_slide"));
-  console.log("f2_slide", context.get("f2_slide"));
-  console.log("f3_slide", context.get("f3_slide"));
-  console.log("form_slide", context.get("form_slide"));
+  // console.log("logo_slide", context.get("logo_slide"));
+  // console.log("f1_slide", context.get("f1_slide"));
+  // console.log("f2_slide", context.get("f2_slide"));
+  // console.log("f3_slide", context.get("f3_slide"));
+  // console.log("form_slide", context.get("form_slide"));
 
   context.set("shop_name", __as.getString("shop_name"));
   context.set("isLoading", false);
@@ -92,7 +92,7 @@ export function toggleSlide(args) {
 }
 
 export function startNow() {
-  console.log("shop_name", context.get("shop_name"));
+  // console.log("shop_name", context.get("shop_name"));
   const errorMessage = "Nama toko tidak boleh kosong!";
   if (!context.get("shop_name")) {
     snackbar(errorMessage, "error");
@@ -124,5 +124,5 @@ export function startNow() {
       clearHistory: true,
     });
     context.set("isLoading", false);
-  }, 1500);
+  }, 500);
 }
