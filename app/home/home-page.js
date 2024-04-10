@@ -66,7 +66,7 @@ export function openMenuOnList(args) {
     : itemTapData.fullname;
 
   Dialogs.action({
-    title: "MENU <" + itemTapData.fullname + ">",
+    title: itemTapData.fullname,
     message: "<" + itemTapData.fullname + ">",
     cancelButtonText: "BATAL",
     actions: [

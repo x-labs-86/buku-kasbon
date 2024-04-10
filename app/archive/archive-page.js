@@ -10,7 +10,8 @@ export function onNavigatingTo(args) {
 
   context.set("isSearchButton", false);
   context.set("isSearchBar", false);
-  context.set("totalUsers", 0);
+  context.set("totalArchiveUsers", 0);
+  context.set("totalArchiveKasbon", 0);
   _getUsers(`WHERE archive=1 AND active=0`);
 
   // console.log("isSearchButton", context.isSearchButton);
@@ -72,7 +73,7 @@ export function onClear(args) {
 function _getUsers(queryCondition = null) {
   SQL__select("users", "*", queryCondition).then((res) => {
     context.set("users", res);
-    context.set("totalUsers", res.length);
+    context.set("totalArchiveUsers", res.length);
     context.set("isUsersEmpty", res.length === 0);
     context.set("isSearchButton", res.length !== 0);
   });

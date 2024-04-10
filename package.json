@@ -6,6 +6,7 @@
   "dependencies": {
     "@nativescript-community/sqlite": "^3.5.0",
     "@nativescript-community/ui-material-snackbar": "^7.2.47",
+    "@nativescript-community/ui-material-tabs": "^7.2.49",
     "@nativescript/core": "~8.6.0",
     "@nativescript/theme": "~3.0.2",
     "nativescript-ui-sidedrawer": "~15.2.0",

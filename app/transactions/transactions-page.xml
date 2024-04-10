@@ -47,7 +47,7 @@
       <ListView items="{{ kasbon }}" itemTap="openMenuOnList" separatorColor="#9e9e9e" row="4">
         <ListView.itemTemplate>
           <GridLayout columns="*, 5, *, 5, *, 5, *">
-            <Label text="{{ kasbon_name }}" horizontalAlignment="left" class="ubuntu" col="0" />
+            <Label text="{{ kasbon_name }}" horizontalAlignment="left" class="ubuntu" textWrap="true" col="0" />
             <Label text="{{ total_payment_formatted }}" horizontalAlignment="center" class="ubuntu" col="2" />
             <Label text="{{ total_paid_formatted }}" horizontalAlignment="center" class="ubuntu" col="4" />
             <Label text="{{ payment_in_full }}" horizontalAlignment="right" class="ubuntu" col="6" />

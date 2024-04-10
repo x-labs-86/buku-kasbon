@@ -91,7 +91,8 @@ function _getBukukasbon(queryCondition = null) {
     const all_paid = res.filter(
       (item) => item.total_paid == item.total_payment
     ).length;
-    const all_kasbon_percent = (all_paid / all_kasbon) * 100 + "%";
+    const all_kasbon_percent =
+      all_paid && all_kasbon ? (all_paid / all_kasbon) * 100 + "%" : "0%";
 
     context.set("all_kasbon", all_kasbon);
     context.set("all_paid", all_paid);
@@ -124,8 +125,8 @@ export function openMenuOnList(args) {
     : itemTapData.kasbon_name;
 
   Dialogs.action({
-    title: "MENU <" + firstWord + ">",
-    message: "<" + itemTapData.fullname + ">",
+    title: itemTapData.kasbon_name,
+    message: "<" + itemTapData.kasbon_name + ">",
     cancelButtonText: "BATAL",
     actions: ["Bayar Kasbon", "Ubah", "Arsipkan", "Hapus Permanen"],
     cancelable: false,
@@ -133,11 +134,22 @@ export function openMenuOnList(args) {
     // console.log(result);
     switch (result) {
       case "Bayar Kasbon":
-        __paidKasbon(itemTapData, firstWord);
+        if (itemTapData.total_payment - itemTapData.total_paid === 0) {
+          Dialogs.alert({
+            title: "Info",
+            message:
+              "Kasbon ini sudah LUNAS dibayar sebesar Rp." +
+              format__number(itemTapData.total_payment),
+            okButtonText: "OK",
+            cancelable: true,
+          });
+        } else {
+          __paidKasbon(itemTapData, firstWord);
+        }
         break;
 
       case "Ubah":
-        __changeData();
+        __changeData(itemTapData);
         break;
 
       case "Arsipkan":
@@ -196,7 +208,7 @@ function __paidKasbon(data, kasbonName) {
   });
 }
 
-function __changeData() {
+function __changeData(itemTapData) {
   Frame.topmost().navigate({
     moduleName: "forms/kasbon-form/kasbon-form",
     transition: {
