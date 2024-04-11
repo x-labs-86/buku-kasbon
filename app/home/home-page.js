@@ -235,7 +235,7 @@ export function insertButton() {
     SQL__insert("users", data);
   }
 
-  _getUsers();
+  _getUsers(`WHERE u.archive=0 AND u.active=1`);
 }
 
 export function selectButton(args) {
@@ -249,7 +249,7 @@ export function truncateButton(args) {
   SQL__truncate("users");
   // console.log("Truncated");
 
-  _getUsers();
+  _getUsers(`WHERE u.archive=0 AND u.active=1`);
 }
 
 export function openModalAddData() {

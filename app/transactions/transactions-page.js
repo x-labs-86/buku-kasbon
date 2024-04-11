@@ -153,11 +153,11 @@ export function openMenuOnList(args) {
         break;
 
       case "Arsipkan":
-        __onArchived(itemTapData.id);
+        __onArchived(itemTapData.bukukasbon_id);
         break;
 
       case "Hapus Permanen":
-        __onDelete(itemTapData.id);
+        __onDelete(itemTapData.bukukasbon_id);
         break;
     }
   });

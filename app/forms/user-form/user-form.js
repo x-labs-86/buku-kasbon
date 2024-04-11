@@ -112,7 +112,7 @@ export function onArchived() {
 
         setTimeout(() => {
           cancelData();
-        }, 1000);
+        }, 400);
       }
     }
     // console.log(result);
@@ -135,7 +135,7 @@ export function onDelete() {
 
         setTimeout(() => {
           cancelData();
-        }, 1000);
+        }, 400);
       }
     }
     // console.log(result);
