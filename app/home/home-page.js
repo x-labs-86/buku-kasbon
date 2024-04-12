@@ -158,7 +158,7 @@ function _getUsers(queryCondition = null) {
   //   " GROUP BY u.id, u.avatar, u.fullname";
 
   const query =
-    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon, COALESCE(t.total_paid, 0) AS total_paid_kasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id LEFT JOIN ( SELECT bt.user_id, SUM(bt.paid) AS total_paid FROM bukukasbon_trx bt JOIN bukukasbon bb ON bt.bukukasbon_id = bb.id GROUP BY bt.user_id ) t ON u.id = t.user_id " +
+    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon, COALESCE(t.total_paid, 0) AS total_paid_kasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id LEFT JOIN ( SELECT bt.user_id, SUM(bt.paid) AS total_paid FROM bukukasbon_trx bt JOIN bukukasbon bb ON bt.bukukasbon_id = bb.id  GROUP BY bt.user_id ) t ON u.id = t.user_id " +
     queryCondition +
     " GROUP BY u.id, u.avatar, u.fullname";
 

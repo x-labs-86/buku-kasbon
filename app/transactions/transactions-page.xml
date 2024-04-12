@@ -14,10 +14,10 @@
         <!-- <Button text="Simpan" class="btn-grey-800" padding="0 20" tap="saveData" col="5" /> -->
         <Label text="&#xf00d;" class="fas btn-grey-800-outline" height="35" padding="10" tap="backHome" col="7" />
       </GridLayout>
-      <GridLayout columns="auto, 10, auto, 10, auto" row="1" col="1">
-        <Label class="fas secondary" text="{{ '&#xf3cd; &nbsp;' + phone }}" col="0" />
-        <Label class="fas secondary" text="{{ '&#xf2bb; &nbsp;' + about }}" col="2" />
-        <Label class="fas secondary" text="{{ '&#xf5a0; &nbsp;' + address }}" col="4" />
+      <GridLayout rows="auto, auto" columns="auto, 15, *" row="1" col="1">
+        <Label class="fas secondary" text="{{ '&#xf3cd; &nbsp;' + phone }}" textWrap="true" row="0" col="0" />
+        <Label class="fas secondary" text="{{ '&#xf2bb; &nbsp;' + about }}" textWrap="true" row="1" col="0" />
+        <Label class="fas secondary" text="{{ '&#xf5a0; &nbsp;' + address }}" textWrap="true" row="0" rowSpan="2" col="2" />
       </GridLayout>
     </GridLayout>
     
