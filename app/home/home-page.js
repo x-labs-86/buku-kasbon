@@ -152,21 +152,44 @@ export function onClear(args) {
 }
 
 function _getUsers(queryCondition = null) {
+  // const query =
+  //   "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id " +
+  //   queryCondition +
+  //   " GROUP BY u.id, u.avatar, u.fullname";
+
   const query =
-    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id " +
+    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon, COALESCE(t.total_paid, 0) AS total_paid_kasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id LEFT JOIN ( SELECT bt.user_id, SUM(bt.paid) AS total_paid FROM bukukasbon_trx bt JOIN bukukasbon bb ON bt.bukukasbon_id = bb.id GROUP BY bt.user_id ) t ON u.id = t.user_id " +
     queryCondition +
     " GROUP BY u.id, u.avatar, u.fullname";
 
   SQL__selectRaw(query).then((res) => {
-    let summary = { totalUsers: 0, totalQtyKasbon: 0, totalKasbon: 0 };
+    let summary = {
+      totalUsers: 0,
+      totalQtyKasbon: 0,
+      totalPaidKasbon: 0,
+      totalKasbon: 0,
+    };
     res = res.map((item, index) => {
       // item.avatar = String.fromCharCode(parseInt(item.avatar, 16));
       item.qtyKasbon = item.total_bukukasbon;
       item.totalKasbon = item.total_payment_bukukasbon
         ? format__number(item.total_payment_bukukasbon)
         : 0;
+      item.totalPaidKasbon = item.total_paid_kasbon
+        ? format__number(item.total_paid_kasbon)
+        : 0;
+
+      item.statusKasbon =
+        item.total_payment_bukukasbon === item.total_paid_kasbon
+          ? "Lunas"
+          : "Belum Lunas";
+      item.statusColorKasbon =
+        item.total_payment_bukukasbon === item.total_paid_kasbon
+          ? "#4CAF50"
+          : "#F44336";
 
       summary.totalKasbon += item.total_payment_bukukasbon;
+      summary.totalPaidKasbon += item.total_paid_kasbon;
       summary.totalQtyKasbon += item.total_bukukasbon;
 
       return item;
@@ -174,6 +197,7 @@ function _getUsers(queryCondition = null) {
 
     // console.log("res users join ", res);
     summary.totalUsers = res.length;
+    summary.totalPaidKasbon = format__number(summary.totalPaidKasbon);
     summary.totalKasbon = format__number(summary.totalKasbon);
     summary.totalQtyKasbon = summary.totalQtyKasbon;
 

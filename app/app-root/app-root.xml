@@ -39,7 +39,7 @@
                         <Label row="0" col="1" text="Pelanggan" class="p-r-10" />
                     </GridLayout>
 
-                    <GridLayout
+                    <!-- <GridLayout
                         columns="auto, *"
                         class="{{ 'nt-drawer__list-item' + (selectedPage === 'Transactions' ? ' -selected': '') }}"
                         route="transactions/transactions-page"
@@ -47,7 +47,7 @@
                         tap="onNavigationItemTap">
                         <Label row="0" col="0" text="&#xf1c0;" class="nt-icon fas" />
                         <Label row="0" col="1" text="Transaksi" class="p-r-10" />
-                    </GridLayout>
+                    </GridLayout> -->
 
                     <!-- <GridLayout
                         columns="auto, *"
@@ -59,8 +59,6 @@
                         <Label row="0" col="1" text="Laporan" class="p-r-10" />
                     </GridLayout> -->
 
-                    <StackLayout class="hr" />
-
                     <GridLayout
                         columns="auto, *"
                         class="{{ 'nt-drawer__list-item' + (selectedPage === 'Archive' ? ' -selected': '') }}"
@@ -70,6 +68,10 @@
                         <Label row="0" col="0" text="&#xf187;" class="nt-icon fas" />
                         <Label row="0" col="1" text="Arsip" class="p-r-10" />
                     </GridLayout>
+
+                    <!-- <StackLayout class="hr" />
+
+                    
                     <GridLayout
                         columns="auto, *"
                         class="{{ 'nt-drawer__list-item' + (selectedPage === 'Settings' ? ' -selected': '') }}"
@@ -78,7 +80,7 @@
                         tap="onNavigationItemTap">
                         <Label row="0" col="0" text="&#xf013;" class="nt-icon fas" />
                         <Label row="0" col="1" text="Pengaturan" class="p-r-10" />
-                    </GridLayout>
+                    </GridLayout> -->
                 </StackLayout>
             </ScrollView>
         </GridLayout>

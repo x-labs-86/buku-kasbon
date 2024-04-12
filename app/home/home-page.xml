@@ -22,27 +22,35 @@
             <Label text="" height="1" backgroundColor="#FBC02D" />
         </FlexboxLayout>
         
-         <GridLayout rows="auto, 10, auto" columns="30, *, auto, 40" row="5">
-            <StackLayout borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="5" paddingRight="5" row="0" col="1" colSpan="2" visibility="{{ isSearchBar ? 'visible' : 'collapsed' }}">
+         <GridLayout rows="auto, 10, auto" columns="40, *, auto, 10, *, 40" row="5">
+            <StackLayout borderWidth="1" borderStyle="solid" borderColor="#9e9e9e" borderRadius="10" paddingLeft="5" paddingRight="5" row="0" col="1" colSpan="4" visibility="{{ isSearchBar ? 'visible' : 'collapsed' }}">
                 <SearchBar hint="Cari berdasarkan nama..." submit="onSubmit" clear="onClear"  />
             </StackLayout>
-            <Label text="Identitas" class="h3 ubuntu" row="2" col="1" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
-            <Label text="Total" class="h3 ubuntu" row="2" col="2" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
+            <Label text="PELANGGAN" class="h3 ubuntu" row="2" col="1" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
+            <Label text="TOTAL" class="h3 ubuntu" row="2" col="2" horizontalAlignment="center" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
+            <Label text="DIBAYAR" class="h3 ubuntu" row="2" col="4" horizontalAlignment="right" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" />
+            <!-- <Label text="Lunas" class="h3 ubuntu" row="2" col="6" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}" /> -->
         </GridLayout>
         <GridLayout rows="*" row="6" class="card-list" visibility="{{ !isUsersEmpty ? 'visible' : 'collapsed' }}">
             <ListView items="{{ users }}" itemTap="openMenuOnList" separatorColor="#9e9e9e" row="0">
                 <ListView.itemTemplate>
-                    <GridLayout columns="auto, *, auto">
-                        <Label text="{{ avatar }}" class="fas h2" col="0" />
+                    <GridLayout columns="0, *, auto, 10, *">
+                        <!-- <Label text="{{ avatar }}" class="fas h2" col="0" /> -->
 
+                        <!-- <Label text="{{ fullname }}" class="ubuntu-bold h3" textTransform="initial" textWrap="true" col="1" /> -->
                         <StackLayout col="1">
                             <Label text="{{ fullname }}" class="ubuntu-bold h3" textTransform="initial" textWrap="true" />
-                            <Label text="{{ phone + ' . ' + about + ' . ' + address }}" class="ubuntu" textTransform="lowercase" textWrap="true" />
+                            <Label text="{{ phone }}" class="ubuntu" fontStyle="italic" textTransform="lowercase" textWrap="true" />
                         </StackLayout>
                         
                         <StackLayout col="2">
-                            <Label text="{{ qtyKasbon + ' kasbon' }}" class="ubuntu h4" />
-                            <Label text="{{ 'Rp' + totalKasbon }}" class="ubuntu" color="#F44336" textWrap="true" />
+                            <Label text="{{ qtyKasbon + ' kasbon' }}" class="ubuntu h4" horizontalAlignment="right" />
+                            <Label text="{{ 'Rp' + totalKasbon }}" class="ubuntu" textWrap="true" horizontalAlignment="center" />
+                        </StackLayout>
+
+                        <StackLayout col="4">
+                            <Label text="{{ statusKasbon }}" class="ubuntu" color="{{ statusColorKasbon }}" textWrap="true" horizontalAlignment="right" />
+                            <Label text="{{ 'Rp' + totalPaidKasbon }}" class="ubuntu" textWrap="true" horizontalAlignment="right" />
                         </StackLayout>
                     </GridLayout>
                 </ListView.itemTemplate>
@@ -58,7 +66,7 @@
             <Button text="&#x2b; Buat Data Baru" class="fas btn-add ubuntu-bold" height="40" width="170" tap="openUserFormPage" row="6" />
         </GridLayout>
 
-        <GridLayout class="card-list" padding="7 0 0 0" row="8" rows="auto, auto, 10, auto" columns="10, *, *, *">
+        <GridLayout class="card-list" padding="7 0 0 0" row="8" rows="auto, auto, 10, auto" columns="10, *, *, *, *">
 
             <Label text="PELANGGAN" class="ubuntu" horizontalAlignment="center" row="0" col="1" />
             <Label text="{{ summary.totalUsers + ' orang' }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="1" />
@@ -68,6 +76,9 @@
 
             <Label text="TOTAL" class="ubuntu" horizontalAlignment="center" row="0" col="3" />
             <Label text="{{ 'Rp' + summary.totalKasbon }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="3" />
+
+            <Label text="DIBAYAR" class="ubuntu" horizontalAlignment="center" row="0" col="4" />
+            <Label text="{{ 'Rp' + summary.totalPaidKasbon }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="4" />
             
             <!-- <Button text="&#xf200;" class="fas h2 btn-grey" tap="openReportPage" row="0" col="3" rowSpan="2" /> -->
         </GridLayout>

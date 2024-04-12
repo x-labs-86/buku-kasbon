@@ -92,7 +92,9 @@ function _getBukukasbon(queryCondition = null) {
       (item) => item.total_paid == item.total_payment
     ).length;
     const all_kasbon_percent =
-      all_paid && all_kasbon ? (all_paid / all_kasbon) * 100 + "%" : "0%";
+      all_paid && all_kasbon
+        ? ((all_paid / all_kasbon) * 100).toFixed(2) + "%"
+        : "0%";
 
     context.set("all_kasbon", all_kasbon);
     context.set("all_paid", all_paid);
@@ -269,6 +271,7 @@ function __onDelete(id) {
     if (result) {
       if (id) {
         SQL__delete("bukukasbon", id);
+        SQL__delete("bukukasbon_trx", false, "WHERE bukukasbon_id = " + id);
         snackbar("Data kasbon berhasil dihapus secara permanen.", "success");
 
         setTimeout(() => {
