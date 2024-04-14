@@ -1,6 +1,7 @@
 import { SQL__query } from "~/sql_helper";
 import { Frame, Application, AndroidApplication } from "@nativescript/core";
 import { SnackBar } from "@nativescript-community/ui-material-snackbar";
+import { InterstitialAd } from "@nativescript/firebase-admob";
 
 export function init__tables() {
   SQL__query(`CREATE TABLE IF NOT EXISTS "users" (
@@ -242,4 +243,19 @@ export function handle__BackButton(defaultBack = true, backOptions) {
       );
     }
   }
+}
+
+export function loadMyAdMob() {
+  const ad = InterstitialAd.createForAdRequest(
+    "ca-app-pub-1640120316722376/1451991853"
+  );
+
+  ad.onAdEvent((event, error, data) => {
+    /* 
+      event : adLoaded, adClosed
+     */
+    ad.show();
+  });
+
+  ad.load();
 }

@@ -11,6 +11,7 @@ import {
   format__number,
   getCurrent__formattedDate,
   fontAwesome__parser,
+  loadMyAdMob,
 } from "~/global_helper";
 import {
   SQL__select,
@@ -27,6 +28,8 @@ export function onLoaded(args) {
     getCurrent__formattedDate() && getCurrent__formattedDate().split(",");
   context.set("currentFormattedDate__day", splitTime[0].trim());
   context.set("currentFormattedDate", splitTime[1].trim());
+
+  loadMyAdMob();
 }
 
 export function onNavigatingTo(args) {

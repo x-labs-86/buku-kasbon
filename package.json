@@ -1,13 +1,15 @@
 {
   "name": "bukukasbon",
   "main": "app/app.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@nativescript-community/sqlite": "^3.5.0",
     "@nativescript-community/ui-material-snackbar": "^7.2.47",
     "@nativescript-community/ui-material-tabs": "^7.2.49",
     "@nativescript/core": "~8.6.0",
+    "@nativescript/firebase-admob": "^3.2.4",
+    "@nativescript/firebase-core": "^3.2.4",
     "@nativescript/theme": "~3.0.2",
     "nativescript-ui-sidedrawer": "~15.2.0",
     "rxjs": "~7.8.0"

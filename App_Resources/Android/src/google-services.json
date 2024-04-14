@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "412996017704",
+    "project_id": "buku-kasbon",
+    "storage_bucket": "buku-kasbon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412996017704:android:a37216cff23f7859ab9f1d",
+        "android_client_info": {
+          "package_name": "com.kang.cahya.apps.bukukasbon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA68hh82PZ39dg1StvQPj-YlDIYoDjIX9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

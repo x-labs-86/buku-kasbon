@@ -7,12 +7,19 @@ import {
   SQL__delete,
 } from "~/sql_helper";
 import { GlobalModel } from "~/global_model";
-import { format__number, snackbar, created__date } from "~/global_helper";
+import {
+  format__number,
+  snackbar,
+  created__date,
+  loadMyAdMob,
+} from "~/global_helper";
 
 var context = new GlobalModel([{ page: "Archive" }]);
 
 export function onNavigatingTo(args) {
   const page = args.object;
+
+  loadMyAdMob();
 
   context.set("isSearchButton", false);
   context.set("isSearchBar", false);
