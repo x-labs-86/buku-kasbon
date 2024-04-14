@@ -1,4 +1,4 @@
-import { Application, ApplicationSettings } from "@nativescript/core";
+import { Application, ApplicationSettings, Utils } from "@nativescript/core";
 
 import { snackbar } from "~/global_helper";
 import { GlobalModel } from "~/global_model";
@@ -45,4 +45,22 @@ export function onSubmit() {
     "success",
     5000
   );
+}
+
+export function openUrl(args) {
+  if (args.object && args.object.url) {
+    Utils.openUrl(args.object.url);
+  }
+}
+
+export function openEmail(args) {
+  if (args.object && args.object.email) {
+    if (args.object.subject) {
+      Utils.openUrl(
+        "mailto:" + args.object.email + "?subject=" + args.object.subject
+      );
+    } else {
+      Utils.openUrl("mailto:" + args.object.email);
+    }
+  }
 }

@@ -1,6 +1,11 @@
 import { Application, Frame, Dialogs } from "@nativescript/core";
 
-import { SQL__select, SQL__update, SQL__delete } from "~/sql_helper";
+import {
+  SQL__select,
+  SQL__selectRaw,
+  SQL__update,
+  SQL__delete,
+} from "~/sql_helper";
 import { GlobalModel } from "~/global_model";
 import { format__number, snackbar, created__date } from "~/global_helper";
 
@@ -23,7 +28,7 @@ export function onNavigatingTo(args) {
 
 function reload() {
   _getUsers(`WHERE archive=1 AND active=0`);
-  _getKasbon(`WHERE archive=1`);
+  _getKasbon(`WHERE bk.archive=1`);
 }
 
 export function onDrawerButtonTap(args) {
@@ -39,7 +44,9 @@ export function onSubmit(args) {
   _getUsers(
     `WHERE fullname LIKE '%${args.object.text}%' AND archive=1 AND active=0`
   );
-  _getKasbon(`WHERE kasbon_name LIKE '%${args.object.text}%' AND archive=1`);
+  _getKasbon(
+    `WHERE bk.kasbon_name LIKE '%${args.object.text}%' AND bk.archive=1`
+  );
 }
 
 export function onClear(args) {
@@ -56,7 +63,10 @@ function _getUsers(queryCondition = null) {
 }
 
 function _getKasbon(queryCondition = null) {
-  SQL__select("bukukasbon", "*", queryCondition).then((res) => {
+  SQL__selectRaw(
+    "SELECT u.fullname, bk.* FROM bukukasbon bk LEFT JOIN users u ON bk.user_id=u.id " +
+      queryCondition
+  ).then((res) => {
     res = res.map((item) => {
       item.total_payment_formatted = "Rp." + format__number(item.total_payment);
 

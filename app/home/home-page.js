@@ -23,7 +23,10 @@ import {
 var context = new GlobalModel([{ page: "Home" }]);
 
 export function onLoaded(args) {
-  context.set("currentFormattedDate", getCurrent__formattedDate());
+  const splitTime =
+    getCurrent__formattedDate() && getCurrent__formattedDate().split(",");
+  context.set("currentFormattedDate__day", splitTime[0].trim());
+  context.set("currentFormattedDate", splitTime[1].trim());
 }
 
 export function onNavigatingTo(args) {
@@ -157,8 +160,13 @@ function _getUsers(queryCondition = null) {
   //   queryCondition +
   //   " GROUP BY u.id, u.avatar, u.fullname";
 
+  // const query =
+  //   "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon, COALESCE(t.total_paid, 0) AS total_paid_kasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id LEFT JOIN ( SELECT bt.user_id, SUM(bt.paid) AS total_paid FROM bukukasbon_trx bt JOIN bukukasbon bb ON bt.bukukasbon_id = bb.id  GROUP BY bt.user_id ) t ON u.id = t.user_id " +
+  //   queryCondition +
+  //   " GROUP BY u.id, u.avatar, u.fullname";
+
   const query =
-    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(b.total_payment) AS total_payment_bukukasbon, COALESCE(t.total_paid, 0) AS total_paid_kasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id LEFT JOIN ( SELECT bt.user_id, SUM(bt.paid) AS total_paid FROM bukukasbon_trx bt JOIN bukukasbon bb ON bt.bukukasbon_id = bb.id  GROUP BY bt.user_id ) t ON u.id = t.user_id " +
+    "SELECT u.*, COUNT(b.id) AS total_bukukasbon, SUM(CASE WHEN b.archive = 0 THEN b.total_payment ELSE 0 END) AS total_payment_bukukasbon, COALESCE(t.total_paid, 0) AS total_paid_kasbon FROM users u LEFT JOIN bukukasbon b ON u.id = b.user_id AND b.archive = 0 LEFT JOIN ( SELECT bt.user_id, SUM(bt.paid) AS total_paid FROM bukukasbon_trx bt JOIN bukukasbon bb ON bt.bukukasbon_id = bb.id WHERE bb.archive = 0 GROUP BY bt.user_id ) t ON u.id = t.user_id " +
     queryCondition +
     " GROUP BY u.id, u.avatar, u.fullname";
 

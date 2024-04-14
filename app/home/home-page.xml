@@ -3,18 +3,19 @@
     navigatingTo="onNavigatingTo"
     xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="home-page">
 
-    <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 10, auto, 10">
+    <GridLayout rows="20, 37, 10, auto, 15, auto, *, 15, auto, 10, auto, 10">
         <GridLayout row="1">
             <NavigationButton visibility="hidden"></NavigationButton>
-            <GridLayout columns="20, auto, 10, *, 10, auto, 10, auto, 5, auto 15">
-                <Label class="fas h2" text="&#xf036;" tap="onDrawerButtonTap" col="1"/>
+            <GridLayout rows="auto,auto" columns="20, auto, 10, *, 10, auto, 10, auto, 5, auto 15">
+                <Label class="fas h2" text="&#xf036;" tap="onDrawerButtonTap" row="0" rowSpan="2" col="1"/>
                 <!-- <WrapLayout tap="onDrawerButtonTap" borderColor="#BDBDBD" borderWidth="1" borderStyle="solid" col="1">
                     <Image src="~/assets/icon.png" />
                 </WrapLayout> -->
-                <Label class="ubuntu-bold h2 secondary" text="Buku Kasbon" col="3" tap="truncateButton" />
-                <Label class="ubuntu grey-800" marginTop="10" text="{{ currentFormattedDate }}" col="5" tap="insertButton" />
-                <Label class="fas btn-grey" text="&#xf002;" padding="0 10" marginRight="5" col="7" tap="searchBarToggle" />
-                <Label text="&#x2b;" class="fas btn-grey-800-outline" padding="0 10" tap="openUserFormPage" col="9" />
+                <Label class="ubuntu-bold h2 secondary" text="Buku Kasbon" row="0" rowSpan="2" col="3" />
+                <Label class="ubuntu grey-800"  text="{{ currentFormattedDate__day }}" row="0" col="5" />
+                <Label class="ubuntu grey-800"  text="{{ currentFormattedDate }}" row="1" col="5" />
+                <Label class="fas btn-grey" text="&#xf002;" padding="0 10" marginRight="5" row="0" rowSpan="2" col="7" tap="searchBarToggle" />
+                <Label text="&#x2b;" class="fas btn-grey-800-outline" padding="0 10" tap="openUserFormPage" row="0" rowSpan="2" col="9" />
             </GridLayout>
         </GridLayout>
         
@@ -83,9 +84,9 @@
             <!-- <Button text="&#xf200;" class="fas h2 btn-grey" tap="openReportPage" row="0" col="3" rowSpan="2" /> -->
         </GridLayout>
 
-        <StackLayout row="10" padding="5 0" tap="openReportPage">
-                <Label text="Lihat Laporan Lengkapnya" class="ubuntu-bold" horizontalAlignment="center" textWrap="true" />
-                <Label text="&#xf107;" class="fas" horizontalAlignment="center" />
-            </StackLayout>
+        <!-- <StackLayout row="10" padding="5 0" tap="openReportPage">
+            <Label text="Lihat Laporan Lengkapnya" class="ubuntu-bold" horizontalAlignment="center" textWrap="true" />
+            <Label text="&#xf107;" class="fas" horizontalAlignment="center" />
+        </StackLayout> -->
     </GridLayout>
 </Page>

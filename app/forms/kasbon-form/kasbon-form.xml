@@ -3,7 +3,7 @@
   navigatingTo="onNavigatingTo"
   xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-  <GridLayout rows="20, auto, 10, auto, 15, auto, *, 15, auto, 20">
+  <GridLayout rows="20, auto, 10, auto, 15, *, 15, auto, 20">
     <GridLayout row="1">
       <GridLayout rows="auto, 0, auto" columns="20, auto, 10, *, 10, auto, 0, auto, 20">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->

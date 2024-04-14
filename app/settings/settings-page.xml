@@ -1,17 +1,33 @@
 <Page
+    loaded="onLoaded"
     navigatingTo="onNavigatingTo"
-    xmlns="http://schemas.nativescript.org/tns.xsd">
+    xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="home-page">
 
-    <ActionBar>
-        <NavigationButton visibility="hidden"></NavigationButton>
-        <GridLayout columns="50, *">
-            <Label class="action-bar-title" text="Settings" colSpan="2"/>
-            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
+    <GridLayout rows="20, 35, 10, auto, 15, auto, 15, *, 15">
+        <GridLayout row="1">
+            <NavigationButton visibility="hidden"></NavigationButton>
+            <GridLayout columns="20, auto, 10, *, 15">
+                <Label class="fas h2" text="&#xf036;" tap="onDrawerButtonTap" col="1"/>
+                <Label class="ubuntu-bold h2 secondary" text="Pengaturan" col="3" />
+            </GridLayout>
         </GridLayout>
-    </ActionBar>
+        
+        <FlexboxLayout flexDirection="column" backgroundColor="#3c495e" marginLeft="20" marginRight="20" row="3">
+            <Label text="" height="1" backgroundColor="#FBC02D" />
+        </FlexboxLayout>
 
-    <GridLayout class="page__content">
-        <Label class="page__content-icon fas" text="&#xf013;"></Label>
-        <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+        <StackLayout row="5">
+            <Label text="Setiap melakukan perubahan, pengaturan akan diterapkan ketika aplikasi dijalankan ulang (restart)." class="ubuntu h3" textWrap="true" horizontalAlignment="center" textAlignment="center" padding="10" margin="0 15" backgroundColor="#FFEB3B" borderRadius="5" />
+            <!-- <Label text="Jika Kamu melakukan perubahan pengaturan, harap tutup aplikasi secara penuh lalu jalankan kembali!" class="ubuntu h3" textWrap="true" horizontalAlignment="center" textAlignment="center" padding="10" margin="5 15 0 15" backgroundColor="#FFEB3B" borderRadius="5" /> -->
+        </StackLayout>
+        
+        <ScrollView row="7">
+            <StackLayout>
+                <Label text="Nama Toko" class="h3" margin="0 20" />
+                <TextField class="text-input-outline" text="{{ shop_name }}" hint="" />
+
+                <Button text="Simpan Perubahan" class="btn-grey-800" marginTop="20" padding="0 20" tap="onSubmit" /> 
+            </StackLayout>
+        </ScrollView>
     </GridLayout>
 </Page>

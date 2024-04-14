@@ -3,7 +3,7 @@
   navigatingTo="onNavigatingTo"
   xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-  <GridLayout rows="20, auto, 20, auto, 10, auto, 15, auto, *, 15, auto, 20">
+  <GridLayout rows="20, auto, 20, auto, 10, auto, 15, *, 15, auto, 20">
     <GridLayout rows="auto, auto" columns="20, *, 20" row="1">
       <GridLayout columns="0, auto, 10, *, 10, auto, 0, auto, 0" row="0" col="1">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
@@ -27,10 +27,12 @@
       <Label text="Masih ada Kasbon" color="#000" fontSize="20" horizontalAlignment="center" row="0" col="1" />
       
     </GridLayout>
+
     <GridLayout columns="*, *" row="5" margin="0 10">
-        <Button text="Ubah data pelanggan" backgroundColor="#333" color="#fff" borderRadius="10" col="0" />
-        <Button text="Tambah Kasbon baru" backgroundColor="#333" color="#fff" borderRadius="10" col="1" />
-      </GridLayout>
+      <Button text="Ubah data pelanggan" backgroundColor="#333" color="#fff" borderRadius="10" col="0" />
+      <Button text="Tambah Kasbon baru" backgroundColor="#333" color="#fff" borderRadius="10" col="1" />
+    </GridLayout>
+
     <ScrollView row="7">
       <StackLayout>
         <!-- <Label text="Nama Lengkap" class="h3" margin="0 20" />

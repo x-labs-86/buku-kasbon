@@ -68,10 +68,12 @@
                     <GridLayout row="0" rows="*" visibility="{{ !isKasbonEmpty ? 'visible' : 'collapsed' }}">
                         <ListView items="{{ kasbon }}" itemTap="openMenuOnListOfKasbon" separatorColor="#9e9e9e" row="0">
                             <ListView.itemTemplate>
-                                <StackLayout>
-                                    <Label text="{{ kasbon_name }}" class="ubuntu-bold h3" textTransform="initial" textWrap="true" />
-                                    <Label text="{{ total_payment_formatted }}" class="ubuntu" textTransform="lowercase" textWrap="true" />
-                                </StackLayout>
+                                <GridLayout rows="auto, auto" columns="*, auto">
+                                    <Label text="{{ kasbon_name }}" class="ubuntu-bold h3" textTransform="initial" textWrap="true" row="0" col="0" />
+                                    <Label text="{{ total_payment_formatted }}" class="ubuntu" textTransform="lowercase" textWrap="true" row="1" col="0" />
+
+                                    <Label text="{{ fullname }}" class="ubuntu" textTransform="lowercase" textWrap="true" row="0" rowSpan="2" col="1" />
+                                </GridLayout>
                             </ListView.itemTemplate>
                         </ListView>
                     </GridLayout>

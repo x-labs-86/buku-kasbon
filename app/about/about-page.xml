@@ -1,0 +1,58 @@
+<Page
+    loaded="onLoaded"
+    navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="home-page">
+
+    <GridLayout rows="20, 35, 10, auto, 15, *, 15, auto, 15">
+        <GridLayout row="1">
+            <NavigationButton visibility="hidden"></NavigationButton>
+            <GridLayout columns="20, auto, 10, *, 15">
+                <Label class="fas h2" text="&#xf036;" tap="onDrawerButtonTap" col="1"/>
+                <Label class="ubuntu-bold h2 secondary" text="Tentang Aplikasi" col="3" />
+            </GridLayout>
+        </GridLayout>
+        
+        <FlexboxLayout flexDirection="column" backgroundColor="#3c495e" marginLeft="20" marginRight="20" row="3">
+            <Label text="" height="1" backgroundColor="#FBC02D" />
+        </FlexboxLayout>
+
+        
+        
+        <ScrollView row="5">
+            <StackLayout padding="0 0 20 0">
+                <Image src="~/assets/icon.png" height="100" />
+                <Label text="Buku Kasbon" class="ubuntu-bold h2" horizontalAlignment="center" margin="0 0" />
+                <Label text="versi 1.0.0" class="ubuntu h3" horizontalAlignment="center" margin="0 0" />
+                <Label text="Buku kasbon adalah sebuah aplikasi pencatatan kasbon yang Mudah digunakan dan Efisien. Aplikasi ini offline, Tidak perlu jaringan internet. Minim penggunaan kertas. Dapat di atur dengan mudah dan semua ada dalam genggaman Anda." class="ubuntu h3" textWrap="true" horizontalAlignment="center" textAlignment="center" margin="5 20 0 20" />
+
+                <Label text="Pengembang Aplikasi" class="ubuntu-bold h2" horizontalAlignment="center" textWrap="true" margin="20 0 0 0" />
+                <Label text="x-labs" class="ubuntu h3" horizontalAlignment="center" textTransform="uppercase" margin="0 0" />
+                <Label text="www.x-labs.my.id" tap="openUrl" url="https://x-labs.my.id" class="ubuntu h3" horizontalAlignment="center" margin="0 0" padding="5" backgroundColor="#E0E0E0" borderRadius="5" />
+
+                <Label text="Penulis Kode" class="ubuntu-bold h2" horizontalAlignment="center" textWrap="true" margin="20 0 0 0" />
+                <Label text="Kang Cahya" class="ubuntu h3" textWrap="true" horizontalAlignment="center" textAlignment="center" margin="0 0" />
+                <Label text="www.kang-cahya.com" tap="openUrl" url="https://www.kang-cahya.com" class="ubuntu h3" horizontalAlignment="center" margin="0 0" padding="5" backgroundColor="#E0E0E0" borderRadius="5" />
+                <!-- <Label text="kangcahyakeren@gmail.com" tap="openEmail" email="kangcahyakeren@gmail.com" class="ubuntu h3" horizontalAlignment="center" margin="5 0 0 0" padding="5" backgroundColor="#E0E0E0" borderRadius="5" /> -->
+
+                
+                <!-- <Label text="Dibuat Dengan" class="ubuntu-bold h2" horizontalAlignment="center" textWrap="true" margin="20 0 0 0" />
+                <Label text="&#xf004;" class="fas h1" textWrap="true" horizontalAlignment="center" textAlignment="center" color="#F44336" margin="0 0" /> -->
+
+                <Label text="Laporkan Bugs atau Error" class="ubuntu-bold h2" horizontalAlignment="center" textWrap="true" margin="20 0 0 0" />
+                <Label text="Laporkan jika kamu menemukan error atau bugs pada aplikasi. Bantu kami agar terus berkembang dan memberikan pengalaman aplikasi yang lebih baik." class="ubuntu h3" textWrap="true" horizontalAlignment="center" textAlignment="center" margin="0 20" />
+                <Button text="&#xf188; Kirim Laporan" tap="openEmail" email="kangcahyakeren@gmail.com" subject="Laporan Error - Bukukasbon" class="fas" horizontalAlignment="center" margin="10 0 0 0" padding="0 10" backgroundColor="#FFEB3B" color="#333" borderRadius="10" height="40" />
+            </StackLayout>
+        </ScrollView>
+
+        <StackLayout row="7">
+            <Label horizontalAlignment="center" textWrap="true" margin="0 0 5 0">
+                <FormattedString>
+                    <Span text="Aplikasi ini dibuat dengan" class="ubuntu-bold h3" />
+                    <Span text="&nbsp;" />
+                    <Span text="&#xf004;" class="fas h3" color="#F44336" />
+                </FormattedString>
+            </Label>
+            <Button text="Beri 5 Bintang di Playstore" class="ubuntu-bold" tap="openUrl" url="https://play.google.com/store/apps/details?id=com.kang.cahya.apps.bukukasbon" color="#FFFFFF" backgroundColor="#689F38" borderWidth="0" borderRadius="25" marginTop="10" />
+        </StackLayout>
+    </GridLayout>
+</Page>

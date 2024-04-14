@@ -3,7 +3,7 @@
   navigatingTo="onNavigatingTo"
   xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true">
 
-  <GridLayout rows="20, 35, 10, auto, 15, auto, *, 15, auto, 20">
+  <GridLayout rows="20, 35, 10, auto, 15, *, 20">
     <GridLayout row="1">
       <GridLayout columns="20, auto, 10, *, 10, auto, 0, auto, 20">
         <!-- <Label class="fas h3" text="&#xf518;" tap="onDrawerButtonTap" col="1"/> -->
@@ -17,8 +17,9 @@
     </GridLayout>
     
     <FlexboxLayout flexDirection="column" backgroundColor="#3c495e" marginLeft="20" marginRight="20" row="3">
-        <Label text="" height="1" backgroundColor="#FBC02D" />
+      <Label text="" height="1" backgroundColor="#FBC02D" />
     </FlexboxLayout>
+
     <ScrollView row="5">
       <StackLayout>
         <Label text="Nama Lengkap" class="h3" margin="0 20" />
