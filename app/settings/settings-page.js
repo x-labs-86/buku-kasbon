@@ -1,12 +1,14 @@
 import { Application, ApplicationSettings } from "@nativescript/core";
 
-import { snackbar } from "~/global_helper";
+import { snackbar, loadMyAdMob } from "~/global_helper";
 import { GlobalModel } from "~/global_model";
 
 var context = new GlobalModel([{ page: "Settings" }]);
 var __as = ApplicationSettings;
 
-export function onLoaded() {}
+export function onLoaded() {
+  loadMyAdMob();
+}
 
 export function onNavigatingTo(args) {
   const page = args.object;

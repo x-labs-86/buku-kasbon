@@ -190,14 +190,19 @@ function _getUsers(queryCondition = null) {
         ? format__number(item.total_paid_kasbon)
         : 0;
 
-      item.statusKasbon =
-        item.total_payment_bukukasbon === item.total_paid_kasbon
-          ? "Lunas"
-          : "Belum Lunas";
-      item.statusColorKasbon =
-        item.total_payment_bukukasbon === item.total_paid_kasbon
-          ? "#4CAF50"
-          : "#F44336";
+      if (item.total_payment_bukukasbon) {
+        item.statusKasbon =
+          item.total_payment_bukukasbon === item.total_paid_kasbon
+            ? "Lunas"
+            : "Belum Lunas";
+        item.statusColorKasbon =
+          item.total_payment_bukukasbon === item.total_paid_kasbon
+            ? "#4CAF50"
+            : "#F44336";
+      } else {
+        item.statusKasbon = "-";
+        item.statusColorKasbon = "#333333";
+      }
 
       summary.totalKasbon += item.total_payment_bukukasbon;
       summary.totalPaidKasbon += item.total_paid_kasbon;
