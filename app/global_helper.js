@@ -254,7 +254,9 @@ export function loadMyAdMob() {
     /* 
       event : adLoaded, adClosed
      */
-    ad.show();
+    ad.show({
+      immersiveModeEnabled: true,
+    });
   });
 
   ad.load();
