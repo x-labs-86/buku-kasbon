@@ -1,9 +1,5 @@
-import {
-  Frame,
-  Application,
-  ApplicationSettings,
-  Dialogs,
-} from "@nativescript/core";
+import { Frame, Application, Dialogs } from "@nativescript/core";
+import { BannerAdSize } from "@nativescript/firebase-admob";
 
 import { GlobalModel } from "~/global_model";
 import {
@@ -12,13 +8,13 @@ import {
   getCurrent__formattedDate,
   fontAwesome__parser,
   loadMyAdMob,
+  __createDirectories,
 } from "~/global_helper";
 import {
   SQL__select,
   SQL__selectRaw,
   SQL__insert,
   SQL__truncate,
-  SQL__query,
 } from "~/sql_helper";
 
 var context = new GlobalModel([{ page: "Home" }]);
@@ -28,7 +24,7 @@ export function onLoaded(args) {
     getCurrent__formattedDate() && getCurrent__formattedDate().split(",");
   context.set("currentFormattedDate__day", splitTime[0].trim());
   context.set("currentFormattedDate", splitTime[1].trim());
-
+  __createDirectories();
   loadMyAdMob();
 }
 
@@ -37,6 +33,8 @@ export function onNavigatingTo(args) {
 
   context.set("isSearchBar", false);
   _getUsers(`WHERE u.archive=0 AND u.active=1`);
+
+  // console.log(context);
 
   // console.log("shop_name", ApplicationSettings.getString("shop_name"));
 
@@ -294,4 +292,12 @@ export function truncateButton(args) {
 
 export function openModalAddData() {
   // console.log("tap");
+}
+
+export function bannerAdLoaded(args) {
+  const banner = args.object;
+  const adSize = new BannerAdSize(320, 50);
+  banner.size = adSize;
+  banner.load();
+  console.log("banner Loaded >>> ", banner);
 }

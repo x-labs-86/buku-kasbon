@@ -41,7 +41,7 @@
             </ListView>
         </GridLayout>
 
-        <GridLayout row="8" rows="auto, 20, auto" class="page__content" visibility="{{ isUsersEmpty ? 'visible' : 'collapsed' }}">
+        <GridLayout row="7" rows="auto, 20, auto" class="page__content" visibility="{{ isUsersEmpty ? 'visible' : 'collapsed' }}">
             <Image src="~/assets/icon.png" class="page__content-icon" height="74" row="0" />
             <Label class="page__content-placeholder ubuntu-condensed h2" text="Tidak ada data!" row="2"></Label>
         </GridLayout>

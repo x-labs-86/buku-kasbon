@@ -1,7 +1,9 @@
 <Page
     loaded="onLoaded"
     navigatingTo="onNavigatingTo"
-    xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="home-page">
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:ui="@nativescript/firebase-admob"
+    actionBarHidden="true" class="home-page">
 
     <GridLayout rows="20, 37, 10, auto, 15, auto, *, 15, auto, 10, auto, 10">
         <GridLayout row="1">
@@ -67,7 +69,15 @@
             <Button text="&#x2b; Buat Data Baru" class="fas btn-add ubuntu-bold" height="40" width="170" tap="openUserFormPage" row="6" />
         </GridLayout>
 
-        <GridLayout class="card-list" padding="7 0 0 0" row="8" rows="auto, auto, 10, auto" columns="10, *, *, *, *">
+        <StackLayout row="8">
+            <ui:BannerAd
+                height="50"
+                width="320"
+                unitId="ca-app-pub-1640120316722376/7582096957"
+                layoutChanged="bannerAdLoaded" />
+        </StackLayout>
+
+        <GridLayout class="card-list" padding="7 0 0 0" row="10" rows="auto, auto, 10, auto" columns="10, *, *, *, *">
 
             <Label text="PELANGGAN" class="ubuntu" horizontalAlignment="center" row="0" col="1" />
             <Label text="{{ summary.totalUsers + ' orang' }}" class="ubuntu-bold" horizontalAlignment="center" row="1" col="1" />

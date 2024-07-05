@@ -22,7 +22,7 @@
             <StackLayout padding="0 0 20 0">
                 <Image src="~/assets/icon.png" height="100" />
                 <Label text="Buku Kasbon" class="ubuntu-bold h2" horizontalAlignment="center" margin="0 0" />
-                <Label text="versi 1.0.2 build 3" class="ubuntu h3" horizontalAlignment="center" margin="0 0" />
+                <Label text="versi 1.0.3 build 6" class="ubuntu h3" horizontalAlignment="center" margin="0 0" />
                 <Label text="Buku kasbon adalah sebuah aplikasi pencatatan kasbon yang Mudah digunakan dan Efisien. Aplikasi ini offline, Tidak perlu jaringan internet. Minim penggunaan kertas. Dapat di atur dengan mudah dan semua ada dalam genggaman Anda." class="ubuntu h3" textWrap="true" horizontalAlignment="center" textAlignment="center" margin="5 20 0 20" />
 
                 <Label text="Pengembang Aplikasi" class="ubuntu-bold h2" horizontalAlignment="center" textWrap="true" margin="20 0 0 0" />
